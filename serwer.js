@@ -36,9 +36,6 @@ var server = http.createServer(function (req, res) {
 			res.end('<html><head><title>ProjektStartowy UTC</title></head><body><h1>Witaj '+ postData.nickname + '</h1></body></html>');			  
 		});
 	}
-	else {
-		req.connection.destroy();
-	}
 });
 
 server.listen(1337, '127.0.0.1');
