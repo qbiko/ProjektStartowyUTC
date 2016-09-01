@@ -1,7 +1,7 @@
 var http = require('http');
 var qs = require('querystring');
 var dropdown = 
-'<div>'
+'<div>'+
 '<label for="CompanyDropdown">Gdzie pracujesz?</label>'+
 '<select name="CompanyDropdown">'+
 '<option value="UTC">UTC</option>'+
@@ -63,6 +63,10 @@ var server = http.createServer(function (req, res) {
 		req.setEncoding('utf-8');
 		req.on('data', function(data) {
 			requestData += data;
+			var postData = qs.parse(requestData);
+			if (postData.firstname) {
+				alert("Musisz wpisać imię!");
+			}
 		});
 		req.on('end', function() {
 			var postData = qs.parse(requestData);
