@@ -12,7 +12,7 @@ var dropdown =
 '</div>';
 var textarea = 
 '<div>' + 
-'<label for="About">Napisz cos o sobie !!</label>'+
+'<label for="AboutUser">Napisz cos o sobie !!</label>'+
 '</br>'+
 '<textarea name="AboutUser"rows="4" cols="50">'+
 '</textarea>'+
@@ -21,17 +21,6 @@ var pageHTML = '<html>' +
 					'<head>' +
 						'<title>ProjektStartowy UTC</title>' +
 						'<meta charset="utf-8">' +
-						'<script type="text/javascript">' +
-						'function sprawdz_formularz()' +
-						'{' +
-							'var f = document.forms["formularz"];' +
-							'if (f.firstname.value == "")' +
-							'{' +
-								'alert("Musisz wpisać imię!");' +
-								'f.firstname.focus();' +
-								'return false;' +
-							'}' +
-						'</script>' +
 
 					'</head>' +
 					'<body>' +
@@ -63,10 +52,6 @@ var server = http.createServer(function (req, res) {
 		req.setEncoding('utf-8');
 		req.on('data', function(data) {
 			requestData += data;
-			var postData = qs.parse(requestData);
-			if (postData.firstname) {
-				alert("Musisz wpisać imię!");
-			}
 		});
 		req.on('end', function() {
 			var postData = qs.parse(requestData);
