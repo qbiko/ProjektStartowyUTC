@@ -24,7 +24,7 @@ var pageHTML = '<html>' +
 								'<label for="surname">Nazwisko:</label>'+
 								'<input type="text" name="name">' +
 							'</div>' +
-							dropdown
+							dropdown +
 							'<div>' +
 								'<input type="submit" value="Wyślij!">' +
 							'</div>' +
