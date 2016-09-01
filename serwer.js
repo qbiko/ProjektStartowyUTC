@@ -13,9 +13,21 @@ var pageHTML = '<html>' +
 					'<head>' +
 						'<title>ProjektStartowy UTC</title>' +
 						'<meta charset="utf-8">' +
+						'<script type="text/javascript">' +
+						'function sprawdz_formularz()' +
+						'{' +
+							'var f = document.forms["formularz"];' +
+							'if (f.firstname.value == "")' +
+							'{' +
+								'alert("Musisz wpisać imię!");' +
+								'f.firstname.focus();' +
+								'return false;' +
+							'}' +
+						'</script>' +
+
 					'</head>' +
 					'<body>' +
-						'<form method="post" name="formularz" action="">' +
+						'<form method="post" name="formularz" action="" onsubmit="return sprawdz_formularz()">' +
 							'<div>' +
 								'<label for="firstname">Imię:</label>'+
 								'<input type="text" name="firstname">' +
