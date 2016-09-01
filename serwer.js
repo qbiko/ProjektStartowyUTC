@@ -22,7 +22,7 @@ var pageHTML = '<html>' +
 							'</div>' +
 							'<div>' +
 								'<label for="surname">Nazwisko:</label>'+
-								'<input type="text" name="name">' +
+								'<input type="text" name="surname">' +
 							'</div>' +
 							dropdown +
 							'<div>' +
