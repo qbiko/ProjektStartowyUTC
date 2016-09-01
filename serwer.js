@@ -7,7 +7,7 @@ var pageHTML = '<html>' +
 						'<meta charset="utf-8">' +
 					'</head>' +
 					'<body>' +
-						'<form method="post" action="">' +
+						'<form method="post" name="formularz" action="">' +
 							'<div>' +
 								'<label for="nickname">Imię:</label>'+
 								'<input type="text" name="nickname">' +
