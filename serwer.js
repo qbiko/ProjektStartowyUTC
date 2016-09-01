@@ -14,7 +14,7 @@ var textarea =
 '<div>' + 
 '<label for="AboutUser">Napisz cos o sobie !!</label>'+
 '</br>'+
-'<textarea name="AboutUser"rows="4" cols="50">'+
+'<textarea name="AboutUser"rows="4" cols="50" required>'+
 '</textarea>'+
 '</div>';
 var pageHTML = '<html>' +
@@ -27,11 +27,11 @@ var pageHTML = '<html>' +
 						'<form method="post" name="formularz" action="" onsubmit="return sprawdz_formularz()">' +
 							'<div>' +
 								'<label for="firstname">Imię:</label>'+
-								'<input type="text" name="firstname">' +
+								'<input type="text" name="firstname" required>' +
 							'</div>' +
 							'<div>' +
 								'<label for="surname">Nazwisko:</label>'+
-								'<input type="text" name="surname">' +
+								'<input type="text" name="surname" required>' +
 							'</div>' +
 							dropdown +
 							textarea +
