@@ -9,8 +9,12 @@ var pageHTML = '<html>' +
 					'<body>' +
 						'<form method="post" name="formularz" action="">' +
 							'<div>' +
-								'<label for="nickname">Imię:</label>'+
-								'<input type="text" name="nickname">' +
+								'<label for="firstname">Imię:</label>'+
+								'<input type="text" name="firstname">' +
+							'</div>' +
+							'<div>' +
+								'<label for="surname">Nazwisko:</label>'+
+								'<input type="text" name="name">' +
 							'</div>' +
 							'<div>' +
 								'<input type="submit" value="Wyślij!">' +
