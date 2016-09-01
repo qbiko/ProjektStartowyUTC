@@ -46,7 +46,7 @@ var server = http.createServer(function (req, res) {
 		req.on('end', function() {
 			var postData = qs.parse(requestData);
 			res.writeHead(200, {'Content-Type': 'text/html'});
-			res.end('<html><head><title>ProjektStartowy UTC</title></head><body><h1>Witaj '+ postData.nickname + 'twoja firma to'+postData.CompanyDropdown'</h1></body></html>');			  
+			res.end('<html><head><title>ProjektStartowy UTC</title></head><body><h1>Witaj '+ postData.nickname + 'twoja firma to'+postData.CompanyDropdown + '</h1></body></html>');			  
 		});
 	}
 });
