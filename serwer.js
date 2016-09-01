@@ -1,14 +1,22 @@
 var http = require('http');
 var qs = require('querystring');
 var dropdown = 
+'<div>'
 '<label for="CompanyDropdown">Gdzie pracujesz?</label>'+
 '<select name="CompanyDropdown">'+
 '<option value="UTC">UTC</option>'+
 '<option value="PGS">PGS</option>'+
 '<option value="Intel">Intel</option>'+
 '<option value="Other">Other</option>'+
-'</select>';
-
+'</select>'+
+'</div>';
+var textarea = 
+'<div>' + 
+'<label for="About">Napisz cos o sobie !!</label>'+
+'</br>'+
+'<textarea name="AboutUser"rows="4" cols="50">'+
+'</textarea>'+
+'</div>';
 var pageHTML = '<html>' +
 					'<head>' +
 						'<title>ProjektStartowy UTC</title>' +
@@ -25,6 +33,7 @@ var pageHTML = '<html>' +
 								'<input type="text" name="surname">' +
 							'</div>' +
 							dropdown +
+							textarea +
 							'<div>' +
 								'<input type="submit" value="Wyślij!">' +
 							'</div>' +
@@ -46,7 +55,7 @@ var server = http.createServer(function (req, res) {
 		req.on('end', function() {
 			var postData = qs.parse(requestData);
 			res.writeHead(200, {'Content-Type': 'text/html'});
-			res.end('<html><head><title>ProjektStartowy UTC</title></head><body><h1>Witaj '+ postData.firstname + postData.surname + '! Twoja firma to ' + postData.CompanyDropdown + '</h1></body></html>');			  
+			res.end('<html><head><title>ProjektStartowy UTC</title></head><body><h1>Witaj '+ postData.firstname + postData.surname + '! Twoja firma to ' + postData.CompanyDropdown + 'Wiemy o tobie, ze... ' + postData.AboutUser + '</h1></body></html>');			  
 		});
 	}
 });
