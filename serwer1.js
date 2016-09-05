@@ -31,11 +31,11 @@ app.post('/process_post', urlencodedParser, function (req, res) {
    res.end(stronaPost(req.body.imie, req.body.nazwisko, req.body.firma, req.body.oSobie));
 })
 
-var server = app.listen(8081, function () {
+var server = app.listen(10000, function () {
 
   var host = server.address().address
   var port = server.address().port
 
-  console.log("Serwer dziala http://http://127.0.0.1:8081/")
+  console.log("Serwer dziala http://http://127.0.0.1:%s/", port)
 
 })
