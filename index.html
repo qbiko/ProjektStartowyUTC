@@ -1,0 +1,48 @@
+<html>
+					<head>
+						<title>ProjektStartowy UTC</title>
+						<meta charset="utf-8">
+						<script>
+						function sprawdz_formularz(){
+							var f = document.forms['formularz'];
+							if (f.firstname.value == '')
+							{
+								alert("Musisz wpisać imię!");
+								f.firstname.focus();
+								return false;
+							}
+							return true;
+						}
+						</script>
+					</head>
+					<body>
+						<form method="post" name="formularz" action="http://127.0.0.1:8081/process_post">
+							<div>
+								<label for="imie">Imię:</label>
+								<input type="text" name="imie">
+							</div>
+							<div>
+								<label for="nazwisko">Nazwisko:</label>
+								<input type="text" name="nazwisko">
+							</div>
+							<div>
+							<label for="firma">Gdzie pracujesz?</label>
+							<select name="firma">
+							<option value="UTC">UTC</option>
+							<option value="PGS">PGS</option>
+							<option value="Intel">Intel</option>
+							<option value="Other">Other</option>
+							</select>
+							</div>
+							<div>
+							<label for="oSobie">Jestem... (podaj po przecinku słowa opisujące Ciebie)</label>
+							</br>
+							<textarea name="oSobie"rows="4" cols="50">
+							</textarea>
+							</div>
+							<div>
+								<input type="submit" value="Wyślij!">
+							</div>
+						</form>
+					</body>
+</html>
