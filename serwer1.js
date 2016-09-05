@@ -10,9 +10,9 @@ function stronaPost(imie, nazwisko, firma, oSobie) {
   '</head>' +
   '<body>' +
         '<h3>Dziękujemy za wypełnienie formularza!</h3>' +
-        '<p>Witaj, <b>' + imie + nazwisko + '</b>!</p>' +
-        '<p>Pracujesz w <b>' + firma + '</b>.</p>' +
-        '<p>Jesteś <b>' + oSobie + '</b></p>' +
+        '<p>Witaj, <b id="imieINazwisko">' + imie + ' ' + nazwisko + '</b>!</p>' +
+        '<p>Pracujesz w <b id="firma">' + firma + '</b>.</p>' +
+        '<p>Jesteś <b id="oSobie">' + oSobie + '</b></p>' +
   '</body>' +
   '</html>')
 };
