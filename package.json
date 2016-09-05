@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "react-js-component-testing",
+  "version": "1.0.0",
+  "dependencies": {
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
+    "babel-preset-react": "^6.11.1",
+    "chai": "^3.5.0",
+    "enzyme": "^2.4.1",
+    "jsdom": "^9.4.1",
+    "mocha": "^2.5.3",
+    "react-addons-test-utils": "^15.3.0",
+    "sinon": "^1.17.5"
+  },
+  "scripts": {
+  "start": "node serwer1.js",
+  "test": "mocha --compilers js:babel-core/register --require tests/jsdom-setup.js tests/components/*.js"
+  }
+}
