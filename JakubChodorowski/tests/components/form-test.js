@@ -11,7 +11,7 @@ test.before(function() {
     driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.edge()).build();
 });
 
-test.describe('Projekt Startowu UTC', function() {
+test.describe('Projekt Startowy UTC', function() {
     this.timeout(TimeOut);
 
     test.it('zbadaj tytul strony', function() {
@@ -29,6 +29,21 @@ test.describe('Projekt Startowu UTC', function() {
 	        assert.notEqual(text, '', 'label oSobie jest pusty');
 	    });
     });
+
+		test.it('zbadaj czy formularz poprawnie przesyla informacje', function() {
+			var page = new Page(driver);
+			page.visit();
+
+			page.fillForm('Jakub', 'Chodorowski', 3, 'solidny, zorganizowany, pracowity :D')
+			page.clickSomething(page.buttonWyslij);
+
+			driver.wait(webdriver.until.titleIs('Wypełniono formularz'), 1000);
+
+			page.getFirmaText().then(function(text) {
+	        assert.equal(text, 'Intel', 'Bledna nazwa firmy');
+	    });
+
+		});
 });
 
 test.afterEach(function() {
