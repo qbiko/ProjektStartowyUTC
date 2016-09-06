@@ -42,18 +42,15 @@ Page.prototype.getFirmaText = function() {
 
 Page.prototype.clickSomething = function(something) {
     this.driver.findElement(something).click();
-    return webdriver.promise.fulfilled(true);
 };
 
 Page.prototype.chooseCompany = function(IDcompany) {
     this.clickSomething(this.firmaSelect);
     this.clickSomething(webdriver.By.xpath("/html/body/form/div[3]/select/option[" + IDcompany + "]"));
-    return webdriver.promise.fulfilled(true);
 }
 
 Page.prototype.writeSomewhere = function(destination, text) {
     this.driver.findElement(destination).sendKeys(text);
-    return webdriver.promise.fulfilled(true);
 }
 
 Page.prototype.fillForm = function(imie, nazwisko, IDfirma, oSobie) {
@@ -61,7 +58,6 @@ Page.prototype.fillForm = function(imie, nazwisko, IDfirma, oSobie) {
     this.writeSomewhere(this.nazwiskoInput, nazwisko);
     this.chooseCompany(IDfirma);
     this.writeSomewhere(this.oSobieTextarea, oSobie);
-    return webdriver.promise.fulfilled(true);
 }
 
 module.exports = Page;
