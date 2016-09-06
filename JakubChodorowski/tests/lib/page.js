@@ -9,6 +9,7 @@ function Page(driver) {
     this.oSobieTextarea = webdriver.By.name('oSobie');
     this.buttonWyslij = webdriver.By.id('button');
     this.firmaSelect = webdriver.By.name('firma');
+    this.imieB = webdriver.By.id('imieINazwisko');
 };
 
 Page.prototype.visit = function() {
@@ -39,6 +40,8 @@ Page.prototype.getFirmaText = function() {
     });
     return d.promise;
 };
+
+
 
 Page.prototype.clickSomething = function(something) {
     this.driver.findElement(something).click();
