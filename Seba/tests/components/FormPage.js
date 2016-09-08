@@ -19,7 +19,9 @@ FormPage.prototype.klik = function(path){
 FormPage.prototype.getElement = function(path){
     return this.driver.findElement(path);
 };
-
+FormPage.prototype.getElementText = function(path){
+    return this.driver.findElement(path).getText();
+};
 FormPage.prototype.getUserData = function(path){
     var userdata = this.driver.findElement({xpath: path});
     return userdata.getText();
@@ -28,4 +30,15 @@ FormPage.prototype.getUserData = function(path){
 FormPage.prototype.waitTo = function(name){
     this.driver.wait(webdriver.until.titleIs(name), 10000);
 };
+FormPage.prototype.sleep = function(name){
+    this.driver.sleep(1000);
+};
+FormPage.prototype.getLabelText = function(path) {
+  var d = webdriver.promise.defer();
+  this.driver.findElement(path).
+  getText().then(function(text) {
+    d.fulfill(text);
+  });
+  return d.promise;
+}
 module.exports = FormPage;
