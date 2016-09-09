@@ -11,7 +11,7 @@ test.before(function() {
     driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.edge()).build();
 });
 
-test.describe('Projekt Startowy UTC', function() {
+test.describe('Strona logowania', function() {
     this.timeout(TimeOut);
 
     test.it('zbadaj tytul strony', function() {
