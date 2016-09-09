@@ -26,17 +26,18 @@ var xpathFormContainerInputUsername = webdriver.By.xpath('//div[contains(@class,
 var xpathFormContainerInputPassword = webdriver.By.xpath('//div[contains(@class, "form-container")]/form/div[2]/input');
 var xpathFormContainerUsername = webdriver.By.xpath('//div[contains(@class, "form-container")]/form/div[1]');
 var xpathFormContainerPassword = webdriver.By.xpath('//div[contains(@class, "form-container")]/form/div[2]');
+var link = 'http://10.0.100.171:8082/#/';
+
 test.describe('Test poprawnosci nazwy, hasla oraz dropdown wiecej mozliwosci', function() {
 
     var driver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.safari()).
         build();
-    var page = new FormPage(driver);
-
+    var page = new FormPage(driver, link);
+/*
     test.it('czy po kliknieciu na input username lub password placeholder podnosi sie do gory', function(){
       this.timeout(5000);
       page.visit();
-
       
       page.klik(xpathFormContainerInputUsername);
       page.sleep(5000);
@@ -103,12 +104,10 @@ test.describe('Test poprawnosci nazwy, hasla oraz dropdown wiecej mozliwosci', f
 
       page.getLabelText(usernameLabel).then(function(text) {
         usernameLabelOld = text;
-        console.log(usernameLabelOld);
       });
 
       page.getLabelText(passwordLabel).then(function(text) {
         passwordLabelOld = text;
-        console.log(passwordLabelOld);
       });
 
       page.klik(LanguageDropdown);
@@ -116,15 +115,13 @@ test.describe('Test poprawnosci nazwy, hasla oraz dropdown wiecej mozliwosci', f
       page.klik(LanguageOptionEnglish);
 
       page.getLabelText(usernameLabel).then(function(text) {
-        console.log(text);
         assert.notEqual(text, usernameLabelOld)
       });
 
       page.getLabelText(passwordLabel).then(function(text) {
-        console.log(text);
         assert.notEqual(text, passwordLabelOld)
       });
 
  });
-
+*/
 });

@@ -1,8 +1,8 @@
 var webdriver = require('selenium-webdriver');
  
-function FormPage(driver) {
+function FormPage(driver, link) {
     this.driver = driver;
-    this.url = 'http://10.0.100.171:8082/#/';
+    this.url = link;
 };
  
 FormPage.prototype.visit = function() {
