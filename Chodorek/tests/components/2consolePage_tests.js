@@ -1,8 +1,7 @@
 var assert = require('assert');
 var webdriver = require('selenium-webdriver');
 var test = require('selenium-webdriver/testing');
-var consolePage = require('../lib/consolePage.js');
-var loginPage = require('../lib/loginPage.js');
+var utcPage = require('../lib/utcPage.js');
 import {expect} from 'chai';
 var driver;
 var url;
@@ -14,9 +13,9 @@ test.before(function() {
 });
 
 test.beforeEach(function() {
-  var testPage = new loginPage(driver);
+  var page = new utcPage(driver);
   this.timeout(TimeOut);
-  testPage.visit();
+  page.visit();
 
   driver.sleep(1000);
   driver.getCurrentUrl().then(function(url) {
@@ -34,22 +33,22 @@ test.describe('Strona - kontrola bezpieczeństwa', function() {
     this.timeout(TimeOut);
 
     test.it('czy po zalogowaniu pojawia sie odpowiednia strona i czy poprawnie wylogowuje', function() {
-			var pageLogin = new loginPage(driver);
+			var page = new utcPage(driver);
       this.timeout(TimeOut);
-	    pageLogin.visit();
-      pageLogin.fillForm('marcin', 'changeme', 11, 16);
-			pageLogin.clickSomething(pageLogin.buttonZaloguj);
+	    page.visit();
+      page.fillForm('marcin', 'changeme', 11, 16);
+			page.clickSomething(page.buttonZaloguj);
       driver.sleep(1000);
       driver.getCurrentUrl().then(function(url) {
         assert.equal('http://10.0.100.171:8082/#/console', url, 'Niepoprawny adres po zalogowaniu');
       });
 
       var currentUrl;
-      pageLogin.getUrl().then(function(text) {
+      page.getUrl().then(function(text) {
           currentUrl = text.toString();
         });
-      var pageConsole = new consolePage(driver, currentUrl);
-      pageConsole.logout();
+      page.url = currentUrl;
+      page.logout();
       driver.sleep(1000);
       driver.getCurrentUrl().then(function(url) {
         assert.equal('http://10.0.100.171:8082/#/', url, 'Niepoprawny adres po wylogowaniu');
@@ -57,87 +56,56 @@ test.describe('Strona - kontrola bezpieczeństwa', function() {
     });
 
     test.it('czy po zalogowaniu pojawiaja sie wszystkie opcje do wyboru', function() {
-      var pageLogin = new loginPage(driver);
+      var page = new utcPage(driver);
       this.timeout(TimeOut);
-      pageLogin.visit();
-      pageLogin.fillForm('marcin', 'changeme', 11, 16);
-      pageLogin.clickSomething(pageLogin.buttonZaloguj);
+      page.visit();
+      page.fillForm('marcin', 'changeme', 11, 16);
+      page.clickSomething(page.buttonZaloguj);
       driver.sleep(1000);
 
       var currentUrl = driver.getCurrentUrl().toString();
-      var pageConsole = new consolePage(driver, currentUrl);
+      page.url = currentUrl;
 
-      pageConsole.isElement(pageConsole.userManagement);
-      pageConsole.isElement(pageConsole.level3);
-      pageConsole.isElement(pageConsole.desktopApp);
-      pageConsole.isElement(pageConsole.settings);
-      pageConsole.isElement(pageConsole.userDrop);
+      page.isElement(page.userManagement);
+      page.isElement(page.level3);
+      page.isElement(page.desktopApp);
+      page.isElement(page.settings);
+      page.isElement(page.userDrop);
 
-      pageConsole.clickSomething(pageConsole.userDrop);
-      pageConsole.isElement(pageConsole.myAccount);
-      pageConsole.isElement(pageConsole.help);
-      pageConsole.isElement(pageConsole.about);
-      pageConsole.isElement(pageConsole.logoutButton);
+      page.clickSomething(page.userDrop);
+      page.isElement(page.myAccount);
+      page.isElement(page.help);
+      page.isElement(page.about);
+      page.isElement(page.logoutButton);
     });
 
-/*
-		test.it('zbadaj czy mozna wyczyscic formularz oraz czy pojawia sie komunikat o obowiazku ich wypelnienia', function() {
-      var page = new loginPage(driver);
-	    page.visit();
-      page.fillForm('Jakub', 'Chodorowski', 12, 16);
+		test.it('czy po kliknieciu w opcje dekstop app pojawia sie popup i czy posiada wszystkie elementy', function() {
+      var page = new utcPage(driver);
+      this.timeout(TimeOut);
+      page.visit();
+      page.fillForm('marcin', 'changeme', 11, 16);
+      page.clickSomething(page.buttonZaloguj);
+      driver.sleep(1000);
 
-      page.cleanUsername();
-      page.cleanPassword();
+      var currentUrl = driver.getCurrentUrl().toString();
+      page.url = currentUrl;
 
-      page.getInputText(page.loginInput).then(function(text) {
-        assert.equal(text, '', 'Nie wyczyszczono pola login');
+      page.clickSomething(page.desktopApp);
+      driver.sleep(1000);
+      page.isElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div[1]'));
+      page.isElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div[1]/div/span'));
+      page.isElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div[1]/div/div/button'));
+      page.isElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div[1]/div/div/a'));
+
+      page.getInputText(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div[1]/div/div/p[1]')).then(function(text) {
+        assert.notEqual(text, '', 'blok p jest pusty');
       });
-
-      page.getInputText(page.passwordInput).then(function(text) {
-        assert.equal(text, '', 'Nie wyczyszczono pola haslo');
-      });
-
-      page.getInputText(page.spanValidationLogin).then(function(text) {
-        assert.equal(text, 'This field is required', 'Nie pojawia sie komunikat przy loginie');
-      });
-
-      page.getInputText(page.spanValidationPassword).then(function(text) {
-        assert.equal(text, 'This field is required', 'Nie pojawia sie komunikat przy hasle');
+      page.getInputText(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div[1]/div/div/p[2]/small')).then(function(text) {
+        assert.notEqual(text, '', 'blok small jest pusty');
       });
 
 		});
-    test.it('zbadaj czy w input przesuwa sie do gory i ma kolor czerwony', function() {
-      var page = new loginPage(driver);
-      page.visit();
 
-      page.fillForm('Jakub', 'Chodorowski', 12, 16);
-
-      page.cleanUsername();
-
-      page.driver.findElement(page.loginDiv)
-      .getAttribute('class').then(function(text){
-        expect(text).to.have.string(page.correctClass)
-      });
-
-      page.driver.findElement(page.loginDiv)
-      .getAttribute('class').then(function(text){
-        expect(text).to.have.string(page.classInvalid)
-      });
-
-      page.cleanPassword();
-
-      page.driver.findElement(page.passwordDiv)
-      .getAttribute('class').then(function(text){
-        expect(text).to.have.string(page.classInvalid)
-      });
-
-      page.driver.findElement(page.passwordDiv)
-      .getAttribute('class').then(function(text){
-        expect(text).to.have.string(page.correctClass)
-      });
-
-    });
-    */
 });
 
 test.afterEach(function() {

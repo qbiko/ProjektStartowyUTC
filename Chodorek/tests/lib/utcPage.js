@@ -1,6 +1,6 @@
 var webdriver = require('selenium-webdriver');
 
-function loginPage(driver) {
+function utcPage(driver) {
     this.driver = driver;
     this.url = 'http://10.0.100.171:8082/';
     //1strona
@@ -29,21 +29,39 @@ function loginPage(driver) {
     this.help = webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/ul/li[2]');
     this.about = webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/ul/li[3]');
     //3strona
-    this.roles = webdriver.By.xpath('a[contains(@title, "Roles")]');
-    this.jobFunctions = webdriver.By.xpath('a[contains(@title, "Job Functions")]');
+    this.roles = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "Roles")]');
+    this.jobFunctions = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "Job Functions")]');
+    this.navbarHeader = webdriver.By.xpath('//nav[contains(@class, "topnav")]//div[contains(@class, "navbar-brand")]');
+    this.configuration = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "Configuration")]');
+    this.collapse = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "Collapse")]');
+    this.collapseLi = webdriver.By.xpath('//*[@id="app"]/section/div/aside/nav/ul[2]/li[2]');
+    this.appDiv = webdriver.By.xpath('//*[@id="app"]/section/div');
+    this.collapseClass = "app";
+    this.moduleTitle = webdriver.By.xpath('//table//header[contains(@class, "module-header")]//h2[contains(@class, "module-title")]');
+    this.addButton = webdriver.By.xpath('//table//header[contains(@class, "module-header")]//a[contains(@class, "btn")]');
+    this.addForm = webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]//section/form');
+    this.closeForm = webdriver.By.
+    xpath('//form//div[contains(@class, "side-panel-btns-container")]//a[contains(@class, "icon-close")]');
+    this.inputRoleName = webdriver.By.id('role-name');
+    this.textareaRoleDescription = webdriver.By.id('role-description');
+    this.clearRoleName = webdriver.By.xpath('//*[@id="role-details-accordion"]/div[1]/div[2]/div/div/div[1]/div/span[contains(@class, "icon icon-clear")]');
+    this.divRoleName = webdriver.By.xpath('//*[@id="role-details-accordion"]/div[1]/div[2]/div/div/div[1]/div');
+    this.h4Profile = webdriver.By.xpath('//*[@id="role-details-accordion"]/div[1]/div[1]/h4');
+    this.h4JobF = webdriver.By.xpath('//*[@id="role-details-accordion"]/div[2]/div[1]/h4');
+    this.h4Users = webdriver.By.xpath('//*[@id="role-details-accordion"]/div[3]/div[1]/h4');
 };
 
-loginPage.prototype.visit = function() {
+utcPage.prototype.visit = function() {
     this.driver.get(this.url);
     return webdriver.promise.fulfilled(true);
 };
 
-loginPage.prototype.logout = function() {
+utcPage.prototype.logout = function() {
     this.clickSomething(this.userDrop);
     this.clickSomething(this.logoutButton);
 }
 
-loginPage.prototype.titlePage = function() {
+utcPage.prototype.titlePage = function() {
     var d = webdriver.promise.defer();
     this.driver.getTitle().then(function(title) {
         d.fulfill(title);
@@ -51,7 +69,7 @@ loginPage.prototype.titlePage = function() {
     return d.promise;
 };
 
-loginPage.prototype.isElement = function(element) {
+utcPage.prototype.isElement = function(element) {
   this.driver.findElement(element).then(function(webElement) {
     }, function(err) {
         if (err.state && err.state === 'no such element') {
@@ -62,7 +80,7 @@ loginPage.prototype.isElement = function(element) {
     });
 }
 
-consolePage.prototype.getInputText = function(input) {
+utcPage.prototype.getInputText = function(input) {
     var d = webdriver.promise.defer();
     this.driver.findElement(input).getText().then(function(text) {
         d.fulfill(text);
@@ -70,7 +88,7 @@ consolePage.prototype.getInputText = function(input) {
     return d.promise;
 };
 
-loginPage.prototype.getUrl = function(input) {
+utcPage.prototype.getUrl = function(input) {
     var d = webdriver.promise.defer();
     this.driver.getCurrentUrl().then(function(url) {
       d.fulfill(url);
@@ -78,32 +96,33 @@ loginPage.prototype.getUrl = function(input) {
     return d.promise;
 };
 
-loginPage.prototype.clickSomething = function(something) {
+utcPage.prototype.clickSomething = function(something) {
     this.driver.findElement(something).click();
 };
 
-loginPage.prototype.chooseInformator = function(IDInformator) {
+utcPage.prototype.chooseInformator = function(IDInformator) {
     this.clickSomething(this.informatorSelect);
     this.clickSomething(webdriver.By.xpath('//*[@id="domain"]/li[' + IDInformator + ']'));
 };
 
-loginPage.prototype.chooseLanguage = function(IDLanguage) {
+utcPage.prototype.chooseLanguage = function(IDLanguage) {
     this.clickSomething(this.languageSelect);
     this.clickSomething(webdriver.By.xpath('//*[@id="locale"]/li[' + IDLanguage + ']'));
 }
 
-loginPage.prototype.writeSomewhere = function(destination, text) {
+utcPage.prototype.writeSomewhere = function(destination, text) {
     this.driver.findElement(destination).sendKeys(text);
 }
 
-loginPage.prototype.fillForm = function(login, password, IDInformator, IDJezyk) {
+utcPage.prototype.fillForm = function(login, password, IDInformator, IDJezyk) {
     this.writeSomewhere(this.loginInput, login);
     this.writeSomewhere(this.passwordInput, password);
     this.chooseInformator(IDInformator); //UX USERS TEST 12, PLATFORM 11
     this.chooseLanguage(IDJezyk); //PL 16
 }
 
-loginPage.prototype.checkLocalStorage = function(key) {
+
+utcPage.prototype.checkLocalStorage = function(key) {
     var d = webdriver.promise.defer();
     var temp = String("return window.localStorage.getItem('" + key + "');");
     this.driver.executeScript(temp).then(function(return_value) {
@@ -112,17 +131,24 @@ loginPage.prototype.checkLocalStorage = function(key) {
     return d.promise;
 };
 
-loginPage.prototype.cleanUsername = function() {
+utcPage.prototype.cleanUsername = function() {
   this.clickSomething(this.loginInput);
   this.clickSomething(this.spanUsername);
 }
 
-loginPage.prototype.cleanPassword = function() {
+utcPage.prototype.cleanPassword = function() {
   this.clickSomething(this.passwordInput);
   this.clickSomething(this.spanPassword);
+}
+utcPage.prototype.cleanTextPlace = function(place, clearIcon) {
+  this.clickSomething(place);
+  this.clickSomething(clearIcon);
+}
+utcPage.prototype.chooseColumn = function() {
+  return this.driver.findElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[1]/div'));
 }
 
 
 
 
-module.exports = loginPage;
+module.exports = utcPage;

@@ -2,7 +2,7 @@ var assert = require('assert');
 var webdriver = require('selenium-webdriver');
 var test = require('selenium-webdriver/testing');
 var consolePage = require('../lib/consolePage.js');
-var loginPage = require('../lib/loginPage.js');
+var utcPage = require('../lib/utcPage.js');
 import {expect} from 'chai';
 var driver;
 
@@ -18,16 +18,16 @@ test.describe('Dziala tylko gdy uruchamiamy gdy sie zalogowalismy i wylaczylismy
     this.timeout(TimeOut);
 
     test.it('czy po zamknieciu przegladarki dalej jest sie zalogowanym', function() {
-			var pageLogin = new loginPage(driver);
+			var page = new utcPage(driver);
       this.timeout(TimeOut);
-	    pageLogin.visit();
+	    page.visit();
       driver.sleep(1000);
       driver.getCurrentUrl().then(function(url) {
         assert.equal('http://10.0.100.171:8082/#/console', url, 'Nie jestes zalogowany');
       });
       var currentUrl = driver.getCurrentUrl().toString();
-      var pageConsole = new consolePage(driver, currentUrl);
-      pageConsole.logout();
+      page.url = currentUrl;
+      page.logout();
       driver.sleep(1000);
     });
 });
