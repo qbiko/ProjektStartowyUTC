@@ -12,7 +12,7 @@ var liczba;
 
 test.before(function() {
     this.timeout(TimeOut);
-    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.edge()).build();
+    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.safari()).build();
 });
 
 test.beforeEach(function() {

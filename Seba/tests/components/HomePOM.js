@@ -29,7 +29,7 @@ var xpathFormContainerPassword = webdriver.By.xpath('//div[contains(@class, "for
 var link = 'http://10.0.100.171:8082/#/';
 
 test.describe('Test poprawnosci nazwy, hasla oraz dropdown wiecej mozliwosci', function() {
-
+/*
     var driver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.safari()).
         build();
@@ -123,5 +123,5 @@ test.describe('Test poprawnosci nazwy, hasla oraz dropdown wiecej mozliwosci', f
       });
 
  });
-
+*/
 });

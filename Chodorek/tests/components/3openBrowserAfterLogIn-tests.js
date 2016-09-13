@@ -1,7 +1,6 @@
 var assert = require('assert');
 var webdriver = require('selenium-webdriver');
 var test = require('selenium-webdriver/testing');
-var consolePage = require('../lib/consolePage.js');
 var utcPage = require('../lib/utcPage.js');
 import {expect} from 'chai';
 var driver;
@@ -10,7 +9,7 @@ const TimeOut = 30000; //ms
 
 test.before(function() {
     this.timeout(TimeOut);
-    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.edge()).build();
+    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.safari()).build();
 
 });
 
