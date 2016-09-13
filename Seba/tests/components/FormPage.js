@@ -33,7 +33,7 @@ FormPage.prototype.waitTo = function(name){
     this.driver.wait(webdriver.until.titleIs(name), 10000);
 };
 FormPage.prototype.sleep = function(name){
-    this.driver.sleep(1000);
+    this.driver.sleep(name);
 };
 FormPage.prototype.getLabelText = function(path) {
   var d = webdriver.promise.defer();
@@ -44,7 +44,7 @@ FormPage.prototype.getLabelText = function(path) {
   return d.promise;
 }
 FormPage.prototype.waitToElement = function(path){
-    return this.driver.wait(webdriver.until.elementLocated(path), 5000);
+    return this.driver.wait(webdriver.until.elementLocated(path), 6000);
 }
 
 FormPage.prototype.isElement = function(element) {
