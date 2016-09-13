@@ -1,7 +1,6 @@
 var assert = require('assert');
 var webdriver = require('selenium-webdriver');
 var test = require('selenium-webdriver/testing');
-var consolePage = require('../lib/consolePage.js');
 var utcPage = require('../lib/utcPage.js');
 import {expect} from 'chai';
 var driver;
@@ -27,7 +26,6 @@ test.describe('Dziala tylko gdy uruchamiamy gdy sie zalogowalismy i wylaczylismy
       });
       var currentUrl = driver.getCurrentUrl().toString();
       page.url = currentUrl;
-      page.logout();
       driver.sleep(1000);
     });
 });

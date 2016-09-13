@@ -1,10 +1,10 @@
 var webdriver = require('selenium-webdriver');
- 
+
 function FormPage(driver, link) {
     this.driver = driver;
     this.url = link;
 };
- 
+
 FormPage.prototype.visit = function() {
     this.driver.get(this.url);
     return webdriver.promise.fulfilled(true);
@@ -13,12 +13,14 @@ FormPage.prototype.setText = function(path, text){
     var name = this.driver.findElement(path);
     name.sendKeys(text);
 };
-FormPage.prototype.klik = function(path){
+FormPage.prototype.clickIn = function(path){
     this.driver.findElement(path).click();
 };
+
 FormPage.prototype.getElement = function(path){
     return this.driver.findElement(path);
 };
+
 FormPage.prototype.getElementText = function(path){
     return this.driver.findElement(path).getText();
 };
