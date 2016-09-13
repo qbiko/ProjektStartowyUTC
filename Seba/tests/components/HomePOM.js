@@ -34,7 +34,7 @@ test.describe('Test poprawnosci nazwy, hasla oraz dropdown wiecej mozliwosci', f
         withCapabilities(webdriver.Capabilities.safari()).
         build();
     var page = new FormPage(driver, link);
-/*
+
     test.it('czy po kliknieciu na input username lub password placeholder podnosi sie do gory', function(){
       this.timeout(5000);
       page.visit();
@@ -123,5 +123,5 @@ test.describe('Test poprawnosci nazwy, hasla oraz dropdown wiecej mozliwosci', f
       });
 
  });
-*/
+
 });

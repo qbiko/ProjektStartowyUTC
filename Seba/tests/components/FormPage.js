@@ -41,4 +41,18 @@ FormPage.prototype.getLabelText = function(path) {
   });
   return d.promise;
 }
+FormPage.prototype.waitToElement = function(path){
+    return this.driver.wait(webdriver.until.elementLocated(path), 5000);
+}
+
+FormPage.prototype.isElement = function(element) {
+  this.driver.findElement(element).then(function(webElement) {
+    }, function(err) {
+        if (err.state && err.state === 'no such element') {
+            return 'no such element' ;
+        } else {
+            return 'is';
+        }
+    });
+}
 module.exports = FormPage;

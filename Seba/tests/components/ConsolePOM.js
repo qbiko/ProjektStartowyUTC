@@ -16,7 +16,7 @@ var appsettings = webdriver.By.xpath(directory+'li[4]');
 var navbar = webdriver.By.className('navbar-brand');
 
 test.describe('Test Konsoli Bezpieczenstwa', function(){
-    var driver = new webdriver.Builder().
+/*    var driver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.safari()).
         build();
     var page = new FormPage(driver, link);
@@ -130,5 +130,5 @@ test.describe('Test Konsoli Bezpieczenstwa', function(){
 			})
 		});
 	});
-
+*/
 });
