@@ -8,7 +8,7 @@ var url;
 const TimeOut = 30000; //ms
 var chai = require('chai')
   , should = chai.should();
-var liczba
+var liczba;
 
 test.before(function() {
     this.timeout(TimeOut);
@@ -262,6 +262,5 @@ test.afterEach(function() {
 });
 
 test.after(function() {
-  console.log(liczba);
     driver.quit();
 });
