@@ -21,7 +21,7 @@ test.describe('Find all Links', function(){
 
     test.it('in log-in page', function(){
         //find all links in log-in page and verify title attribute is present
-        /*
+        
         driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
             elements.forEach(function (element) {
                 element.getAttribute('title').then(function(text){
@@ -30,11 +30,11 @@ test.describe('Find all Links', function(){
             });
         });
         page.logIn('marcin', 'changeme', 11, 16);
-        */
+        
     });
 
     test.it('in Console', function(){
-
+        //find all links in log-in page and verify title attribute is present
         driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
             elements.forEach(function (element) {
                 element.getAttribute('title').then(function(text){
