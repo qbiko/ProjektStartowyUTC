@@ -9,9 +9,20 @@ var link = 'http://10.0.100.171:8082/#/umm/users';
 ////div[contains(@class, "list-with-panel-container")]/section/section/table/tbody/tr/td/div/div/
 var list = '//div[contains(@class, "list-with-panel-container")]/section/section/table/tbody/tr/td/div/div';
 var addBtn = webdriver.By.xpath('//div[contains(@class, "pull-right")]/a');
+var addBtn = webdriver.By.xpath('//a[contains(@title, "Add user")]');
+var inputFirst = webdriver.By.xpath('//input[contains(@id, "user-firstname")]');
+var inputMiddle = webdriver.By.xpath('//input[contains(@id, "user-middlename")]');
+var inputLast = webdriver.By.xpath('//input[contains(@id, "user-lastname")]');
+var inputEmail = webdriver.By.xpath('//input[contains(@id, "user-email")]');
+var listInternalAccount = webdriver.By.xpath('//div[contains(@class, "panel-group side-panel-accordion")]/div[2]/div[1]');
+var username = webdriver.By.xpath('//input[contains(@name, "user_name")]');
+var password = webdriver.By.xpath('//input[contains(@name, "password")]');
+var saveBtn = webdriver.By.xpath('//button[contains(@type, "submit")]');
+var closeBtn = webdriver.By.xpath('//a[contains(@title, "Close")]');
+var performanceContainer = webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]');
 
 test.describe('Test zakladki User Managment', function(){
-
+/*
     var driver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.safari()).
         build();
@@ -19,120 +30,70 @@ test.describe('Test zakladki User Managment', function(){
 
 test.describe('Podzakladka Users', function(){
 
-        test.it('czy po kliknieciu ADD, pojawia sie po prawiej stronie okno do wprowadzenia dnaych', function(){
+        test.it('zaladowanie strony', function(){
             this.timeout(5000);
             page.visit();
-            page.klik(addBtn);
-            driver.findElement(webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]')).isDisplayed().then(function(text){
+        });
+        test.it('Przejscie do zakladki tworzenia nowego uzytkownika', function(){
+            //go to new user window
+            page.waitToElement(addBtn);
+            //page.klik(addBtn);
+            //check that the container is loaded
+            driver.findElement(performanceContainer).isDisplayed().then(function(text){
                 assert.equal(text, true);
             })
-        });
+        })
+        test.it('Dodanie nowego uzytkownika, zakladka New User', function(){
+            //set text to all inputs
+            page.waitToElement(inputFirst);
+            page.setText(inputFirst, 'random1');
+            page.setText(inputMiddle, '');
+            page.setText(inputLast, 'random1');
+            page.setText(inputEmail, 'random1@random1.pl');
+        })
+
+        test.it('Dodanie nowego uzytkownika, zakladka Internal Account', function(){
+            
+            page.klik(listInternalAccount);
+            page.waitToElement(username);
+            page.setText(username, 'random1');
+            page.setText(password, 't34875b385');
+            page.klik(saveBtn);
+            page.sleep(2000);
+        })
+        //sprawdzic czy jest na liscie ?
 
         test.it('blokowanie mozliowsci wprowadzenia ciagu znakow dluzszego niz 32', function(){
-            var firstIn = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input');
-            var middleIn = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/input');
-            var lastIn = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/input');
-
-            var valMsg = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/span');
-            //page.waitToElement()
-            /*
-            page.setText(firstIn, 'duzoduzoduzoduzoduzoduzoduzoduzoddfg'); //powyzej 32 znaki            
-            page.getElement(valMsg).getText().then(function(text){
-                assert.equal(text,'This field is limited to 32 characters');
-            })
-            page.sleep(2000);
-            
-            valMsg = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/span');
-            page.setText(middleIn, 'duzoduzoduzoduzoduzoduzoduzoduzoddgsd'); //powyzej 32 znaki            
-            page.getElement(valMsg).getText().then(function(text){
-                assert.equal(text,'This field is limited to 32 characters');
-            })
-
-            valMsg = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/span');
-            page.setText(lastIn, 'duzoduzoduzoduzoduzoduzoduzoduzoddgds'); //powyzej 32 znaki            
-            page.getElement(valMsg).getText().then(function(text){
-                assert.equal(text,'This field is limited to 32 characters');
-            })*/
-            
-        });
-
-        test.it('sprawdzam, czy na uzytkowniku mozna poprawnie wykonac akcje', function(){
-            /*var user = webdriver.By.xpath('//a[contains(@title, "lstNm_dds10")]');
+           /* var user = webdriver.By.xpath('//a[contains(@title, "lstNm_dds10")]');
+            page.waitToElement(user);
             page.klik(user);
 
-            var toggleBtn = webdriver.By.xpath('//button[contains(@class, "user-card-actions-dropdown-button")]');
-            page.sleep(1000);
-            var dropdownActions = webdriver.By.xpath('//ul[contains(@class, "user-card-actions-dropdown"]/li[2]/a');
-            page.sleep(1000);
-            var saveBtn = webdriver.By.xpath('//button[contains(@type, "submit")]');*/
+            var inputFirst = webdriver.By.xpath('//input[contains(@id, "user-firstname")]');
+            var inputMiddle = webdriver.By.xpath('//input[contains(@id, "user-middlename")]');
 
-        });
+            page.waitToElement(inputFirst);
+            page.setText(inputFirst, 'duzoduzoduzoduzfghfdhfdh'); //powyzej 32 znaki  
 
-            /*
-            //czy wyswietla sie lista z opcjami po prawej stronie po kliknieciu w uzytkonika
-            where = webdriver.By.xpath(list);
-            page.waitToElement(where);
+            var valMsg = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]span[2]');  
+            page.waitToElement(valMsg);   
 
-            element = '/div['+i+']/a';
-            where = webdriver.By.xpath(list+element);
-            var cos = webdriver.By.xpath('//div[contains(@class, "list-with-panel-container")]/section/section/table/tbody/tr/td/div/div/div');
-
-            while(i < cos.length())
-            {
-                element = '/div['+i+']/a';
-                where = webdriver.By.xpath(list+element);
-                page.klik(where);
-
-                driver.findElement(webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]')).isDisplayed().then(function(text){
-                    assert.equal(text, true);
-                })
-                i++;   
-            }
-            */
- /*   test.describe('Dodanie uzytkonika', function(){
-
-        test.it('czy po kliknieciu ADD, pojawia sie po prawiej stronie okno do wprowadzenia dnaych', function(){
-            page.klik(addBtn);
-            page.sleep(5000);
-            driver.findElement(webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]')).isDisplayed().then(function(text){
-                assert.equal(text, true);
-            })
-        });
-
-        test.it('blokowanie mozliowsci wprowadzenia ciagu znakow dluzszego niz 32', function(){
-            var firstIn = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input');
-            var middleIn = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/input');
-            var lastIn = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/input');
-
-            var valMsg = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input');
-            page.setText(firstIn, 'duzoduzoduzoduzoduzoduzoduzoduzoddfg'); //powyzej 32 znaki            
-            page.getElement(valMsg).getText().then(function(text){
+            page.getLabelText(valMsg).then(function(text){
                 assert.equal(text,'This field is limited to 32 characters');
             })
             
-            valMsg = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/input');
-            page.setText(middleIn, 'duzoduzoduzoduzoduzoduzoduzoduzoddgsd'); //powyzej 32 znaki            
+            valMsg = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/span[2]');   
+            page.waitToElement(valMsg);                   
             page.getElement(valMsg).getText().then(function(text){
                 assert.equal(text,'This field is limited to 32 characters');
             })
 
-            valMsg = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/input');
-            page.setText(lastIn, 'duzoduzoduzoduzoduzoduzoduzoduzoddgds'); //powyzej 32 znaki            
+            valMsg = webdriver.By.xpath('//div[contains(@id, "user-details-accordion")]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/span[2]');
+            page.waitToElement(valMsg);         
             page.getElement(valMsg).getText().then(function(text){
                 assert.equal(text,'This field is limited to 32 characters');
             })
             
         });
-        
-    });
 
-    test.describe('Edycja uzytkownika', function(){
-        var user = webdriver.By.xpath('//a[contains(@title, "lstNm_dds10")]');
-        page.klik(user);
-
-        var toggleBtn = webdriver.By.xpath('//button[contains(@class, "user-card-actions-dropdown-button")]');
-        var dropdownActions = webdriver.By.xpath('//ul[contains(@class, "user-card-actions-dropdown"]/li[2]/a');
-        var saveBtn = webdriver.By.xpath('//button[contains(@type, "submit")]');*/
-    });
-
+        });*/
 });

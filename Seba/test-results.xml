@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="3.802" tests="3" failures="1">
+  <testsuite name="Root Suite" timestamp="2016-09-14T09:07:58" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Test zakladki User Managment" timestamp="2016-09-14T09:07:59" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Podzakladka Users" timestamp="2016-09-14T09:07:59" tests="3" failures="1" time="3.802">
+    <testcase name="Root Suite Test zakladki User Managment Podzakladka Users czy po kliknieciu ADD, pojawia sie po prawiej stronie okno do wprowadzenia dnaych" time="2.04" classname="czy po kliknieciu ADD, pojawia sie po prawiej stronie okno do wprowadzenia dnaych">
+    </testcase>
+    <testcase name="Root Suite Test zakladki User Managment Podzakladka Users blokowanie mozliowsci wprowadzenia ciagu znakow dluzszego niz 32" time="1.761" classname="blokowanie mozliowsci wprowadzenia ciagu znakow dluzszego niz 32">
+      <failure><![CDATA[AssertionError: '' == 'This field is limited to 32 characters'
+    at tests/components/UserManagmentPOM.js:43:24
+    at ManagedPromise.invokeCallback_ (node_modules/selenium-webdriver/lib/promise.js:1315:14)
+    at TaskQueue.execute_ (node_modules/selenium-webdriver/lib/promise.js:2736:14)
+    at TaskQueue.executeNext_ (node_modules/selenium-webdriver/lib/promise.js:2719:21)
+    at asyncRun (node_modules/selenium-webdriver/lib/promise.js:2595:27)
+    at node_modules/selenium-webdriver/lib/promise.js:639:7
+    at process._tickCallback (internal/process/next_tick.js:103:7)
+From: Task: Root Suite Test zakladki User Managment Podzakladka Users blokowanie mozliowsci wprowadzenia ciagu znakow dluzszego niz 32
+    at Context.ret (node_modules/selenium-webdriver/testing/index.js:137:10)]]></failure>
+    </testcase>
+    <testcase name="Root Suite Test zakladki User Managment Podzakladka Users sprawdzam, czy na uzytkowniku mozna poprawnie wykonac akcje" time="0.001" classname="sprawdzam, czy na uzytkowniku mozna poprawnie wykonac akcje">
+    </testcase>
+  </testsuite>
+</testsuites>

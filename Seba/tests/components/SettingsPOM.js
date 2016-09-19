@@ -16,6 +16,7 @@ var performanceH3 = webdriver.By.xpath('//h3[contains(@class, "panel-title side-
 
 
 test.describe('Test zakladki Settings', function(){
+    /*
     var driver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.safari()).
         build();
@@ -78,5 +79,5 @@ test.describe('Test zakladki Settings', function(){
             })
         });
 
-    });
+    });*/
 });

@@ -21,11 +21,12 @@
     "enzyme": "^2.4.1",
     "jsdom": "^9.4.1",
     "mocha": "^2.5.3",
+    "mocha-junit-reporter": "^1.12.0",
     "react-addons-test-utils": "^15.3.0",
     "sinon": "^1.17.5"
   },
   "scripts": {
     "start": "node serwer1.js",
-    "test": "mocha --compilers js:babel-core/register --require tests/jsdom-setup.js tests/components/*.js"
+    "test": "mocha --compilers js:babel-core/register --require tests/jsdom-setup.js tests/components/*.js" 
   }
 }
