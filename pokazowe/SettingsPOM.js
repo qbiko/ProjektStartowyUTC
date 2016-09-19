@@ -11,7 +11,6 @@ var passwordBtn = webdriver.By.xpath('//a[contains(@title, "Passwords")]');
 var sessionsBtn = webdriver.By.xpath('//a[contains(@title, "Sessions")]');
 var contactBtn = webdriver.By.xpath('//a[contains(@title, "Contact")]');
 test.describe('Test zakladki Settings', function(){
-    /*
     var driver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.edge()).
         build();
@@ -71,11 +70,6 @@ test.describe('Test zakladki Settings', function(){
             })
         });
 
-<<<<<<< HEAD
-    });*/
-});
-=======
     });
     */
 });
->>>>>>> origin/master

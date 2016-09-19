@@ -6,7 +6,7 @@ function utcPage(driver) {
     //1strona
     this.loginInput = webdriver.By.id('username');
     this.passwordInput = webdriver.By.id('password');
-    this.logInButton = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/div/section/div[3]/form/div[4]/button');
+    this.buttonZaloguj = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/div/section/div[3]/form/div[4]/button');
     this.informatorSelect = webdriver.By.xpath('//*[@id="options-panel"]/div[1]/button');
     this.languageSelect = webdriver.By.xpath('//*[@id="options-panel"]/div[2]/button');
     this.spanUsername = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/div/section/div[3]/form/div[1]/span[1]');
@@ -18,10 +18,6 @@ function utcPage(driver) {
     this.passwordDiv = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/div/section/div[3]/form/div[2]');
     this.classInvalid = 'is-invalid';
     this.correctClass = 'has-focus';
-    this.optionsPanel = webdriver.By.xpath('//div[contains(@id, "options-panel")]');
-    this.moreOptions = webdriver.By.className('options-panel-toggle');
-    this.usernameLabel = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/div/section/div[3]/form/div[1]/label')
-    this.passwordLabel = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/div/section/div[3]/form/div[2]/label');
     //2strona
     this.userDrop = webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li');
     this.logoutButton = webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/ul/li[4]');
@@ -32,8 +28,6 @@ function utcPage(driver) {
     this.myAccount = webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/ul/li[1]');
     this.help = webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/ul/li[2]');
     this.about = webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/ul/li[3]');
-    this.directory = '//ul[contains(@class, "moduleCards")]/';
-    this.iconClose = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div[1]/div/span');
     //3strona
     this.roles = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "Roles")]');
     this.jobFunctions = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "Job Functions")]');
@@ -63,8 +57,8 @@ utcPage.prototype.visit = function() {
 };
 
 utcPage.prototype.logout = function() {
-    this.clickIn(this.userDrop);
-    this.clickIn(this.logoutButton);
+    this.clickSomething(this.userDrop);
+    this.clickSomething(this.logoutButton);
 }
 
 utcPage.prototype.titlePage = function() {
@@ -86,15 +80,7 @@ utcPage.prototype.isElement = function(element) {
     });
 }
 
-utcPage.prototype.getElement = function(path){
-    return this.driver.findElement(path);
-};
-
-utcPage.prototype.waitToElement = function(path){
-    return this.driver.wait(webdriver.until.elementLocated(path), 5000);
-}
-
-utcPage.prototype.getTxt = function(input) {
+utcPage.prototype.getInputText = function(input) {
     var d = webdriver.promise.defer();
     this.driver.findElement(input).getText().then(function(text) {
         d.fulfill(text);
@@ -110,45 +96,31 @@ utcPage.prototype.getUrl = function(input) {
     return d.promise;
 };
 
-utcPage.prototype.clickIn = function(object) {
-    this.driver.findElement(object).click();
+utcPage.prototype.clickSomething = function(something) {
+    this.driver.findElement(something).click();
 };
 
 utcPage.prototype.chooseInformator = function(IDInformator) {
-    this.clickIn(this.informatorSelect);
-    this.clickIn(webdriver.By.xpath('//*[@id="domain"]/li[' + IDInformator + ']'));
+    this.clickSomething(this.informatorSelect);
+    this.clickSomething(webdriver.By.xpath('//*[@id="domain"]/li[' + IDInformator + ']'));
 };
 
 utcPage.prototype.chooseLanguage = function(IDLanguage) {
-    this.clickIn(this.languageSelect);
-    this.clickIn(webdriver.By.xpath('//*[@id="locale"]/li[' + IDLanguage + ']'));
+    this.clickSomething(this.languageSelect);
+    this.clickSomething(webdriver.By.xpath('//*[@id="locale"]/li[' + IDLanguage + ']'));
+}
+
+utcPage.prototype.writeSomewhere = function(destination, text) {
+    this.driver.findElement(destination).sendKeys(text);
 }
 
 utcPage.prototype.fillForm = function(login, password, IDInformator, IDJezyk) {
-    this.setText(this.loginInput, login);
-    this.setText(this.passwordInput, password);
+    this.writeSomewhere(this.loginInput, login);
+    this.writeSomewhere(this.passwordInput, password);
     this.chooseInformator(IDInformator); //UX USERS TEST 12, PLATFORM 11
-    this.chooseLanguage(IDJezyk); //PL 16 ENG 2
+    this.chooseLanguage(IDJezyk); //PL 16
 }
 
-utcPage.prototype.logIn = function(login, password, IDInformator, IDJezyk) {
-    this.fillForm(login, password, IDInformator, IDJezyk);
-    this.clickIn(this.logInButton);
-}
-
-utcPage.prototype.setText = function(path, text){
-    var name = this.driver.findElement(path);
-    name.sendKeys(text);
-};
-
-utcPage.prototype.waitTo = function(name){
-    this.driver.wait(webdriver.until.titleIs(name), 10000);
-};
-
-utcPage.prototype.getUserData = function(path){
-    var userdata = this.driver.findElement({xpath: path});
-    return userdata.getText();
-};
 
 utcPage.prototype.checkLocalStorage = function(key) {
     var d = webdriver.promise.defer();
@@ -160,20 +132,23 @@ utcPage.prototype.checkLocalStorage = function(key) {
 };
 
 utcPage.prototype.cleanUsername = function() {
-  this.clickIn(this.loginInput);
-  this.clickIn(this.spanUsername);
+  this.clickSomething(this.loginInput);
+  this.clickSomething(this.spanUsername);
 }
 
 utcPage.prototype.cleanPassword = function() {
-  this.clickIn(this.passwordInput);
-  this.clickIn(this.spanPassword);
+  this.clickSomething(this.passwordInput);
+  this.clickSomething(this.spanPassword);
 }
 utcPage.prototype.cleanTextPlace = function(place, clearIcon) {
-  this.clickIn(place);
-  this.clickIn(clearIcon);
+  this.clickSomething(place);
+  this.clickSomething(clearIcon);
 }
 utcPage.prototype.chooseColumn = function() {
   return this.driver.findElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[1]/div'));
 }
+
+
+
 
 module.exports = utcPage;

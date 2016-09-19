@@ -1,5 +1,5 @@
 var webdriver = require('selenium-webdriver');
- 
+
 function FormPage(driver, link) {
     
     this.driver = driver;
@@ -13,7 +13,7 @@ function FormPage(driver, link) {
     this.informatorSelect = webdriver.By.xpath('//*[@id="options-panel"]/div[1]/button');
     this.languageSelect = webdriver.By.xpath('//*[@id="options-panel"]/div[2]/button');
 };
- 
+
 FormPage.prototype.visit = function() {
     this.driver.get(this.url);
     return webdriver.promise.fulfilled(true);
@@ -22,12 +22,14 @@ FormPage.prototype.setText = function(path, text){
     var name = this.driver.findElement(path);
     name.sendKeys(text);
 };
-FormPage.prototype.klik = function(path){
+FormPage.prototype.clickIn = function(path){
     this.driver.findElement(path).click();
 };
+
 FormPage.prototype.getElement = function(path){
     return this.driver.findElement(path);
 };
+
 FormPage.prototype.getElementText = function(path){
     return this.driver.findElement(path).getText();
 };
@@ -64,6 +66,7 @@ FormPage.prototype.isElement = function(element) {
         }
     });
 }
+<<<<<<< HEAD
 FormPage.prototype.clickIn = function(object) {
     this.driver.findElement(object).click();
 };
@@ -89,3 +92,6 @@ FormPage.prototype.logIn = function(login, password, IDInformator, IDJezyk) {
     this.clickIn(this.buttonZaloguj);
 }
 module.exports = FormPage;
+=======
+module.exports = FormPage;
+>>>>>>> origin/master

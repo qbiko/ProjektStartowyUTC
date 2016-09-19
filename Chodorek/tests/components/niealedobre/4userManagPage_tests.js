@@ -4,15 +4,11 @@ var test = require('selenium-webdriver/testing');
 var utcPage = require('../lib/utcPage.js');
 import {expect} from 'chai';
 var driver;
-var url;
 const TimeOut = 30000; //ms
-var chai = require('chai')
-  , should = chai.should();
-var liczba;
 
 test.before(function() {
     this.timeout(TimeOut);
-    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.safari()).build();
+    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.edge()).build();
 });
 
 test.beforeEach(function() {
@@ -40,55 +36,55 @@ test.describe('Strona - kontrola bezpieczeństwa', function() {
       this.timeout(TimeOut);
 	    page.visit();
       page.fillForm('marcin', 'changeme', 11, 16);
-			page.clickSomething(page.buttonZaloguj);
+			page.clickIn(page.logInButton);
       driver.sleep(1000);
       var currentUrl;
       page.getUrl().then(function(text) {
           currentUrl = text.toString();
         });
       page.url = currentUrl;
-      page.clickSomething(page.userManagement);
+      page.clickIn(page.userManagement);
       driver.sleep(1000);
       page.isElement(page.userDrop);
 
-      page.clickSomething(page.userDrop);
+      page.clickIn(page.userDrop);
       page.isElement(page.myAccount);
       page.isElement(page.help);
       page.isElement(page.about);
       page.isElement(page.logoutButton);
 
-      page.getInputText(page.navbarHeader).then(function(text) {
+      page.getTxt(page.navbarHeader).then(function(text) {
         assert.equal(text, 'User Management', 'navbar-brand nie zawiera odpowiedniego tytulu');
       });
 
       page.isElement(page.roles);
-      page.getInputText(page.roles).then(function(text) {
+      page.getTxt(page.roles).then(function(text) {
         assert.equal(text, 'Roles', 'link roles zawiera nieodpowiedni tekst');
       });
 
       page.isElement(page.jobFunctions);
-      page.getInputText(page.jobFunctions).then(function(text) {
+      page.getTxt(page.jobFunctions).then(function(text) {
         assert.equal(text, 'Job Functions', 'link job functions zawiera nieodpowiedni tekst');
       });
 
       page.isElement(page.configuration);
-      page.getInputText(page.configuration).then(function(text) {
+      page.getTxt(page.configuration).then(function(text) {
         assert.equal(text, 'Configuration', 'link configuration zawiera nieodpowiedni tekst');
       });
 
       page.isElement(page.collapse);
-      page.getInputText(page.collapse).then(function(text) {
+      page.getTxt(page.collapse).then(function(text) {
         assert.equal(text, 'Collapse', 'link collapse zawiera nieodpowiedni tekst');
       });
 
-      page.clickSomething(page.collapseLi);
+      page.clickIn(page.collapseLi);
       driver.sleep(1000);
       page.driver.findElement(page.appDiv)
       .getAttribute('class').then(function(text){
         expect(text).to.have.string(page.collapseClass)
       });
       driver.sleep(1000);
-      page.clickSomething(page.collapseLi);
+      page.clickIn(page.collapseLi);
     });
 
     test.it('czy zakladka Roles dziala poprawnie', function() {
@@ -96,30 +92,30 @@ test.describe('Strona - kontrola bezpieczeństwa', function() {
       this.timeout(TimeOut);
 	    page.visit();
       page.fillForm('marcin', 'changeme', 11, 16);
-			page.clickSomething(page.buttonZaloguj);
+			page.clickIn(page.logInButton);
       driver.sleep(1000);
       var currentUrl;
       page.getUrl().then(function(text) {
           currentUrl = text.toString();
         });
       page.url = currentUrl;
-      page.clickSomething(page.userManagement);
+      page.clickIn(page.userManagement);
       driver.sleep(1000);
 
-      page.clickSomething(page.roles);
+      page.clickIn(page.roles);
       driver.sleep(1000);
-      page.getInputText(page.moduleTitle).then(function(text) {
+      page.getTxt(page.moduleTitle).then(function(text) {
         assert.equal(text, 'Roles', 'h2 module title ma bledny tytul');
       });
 
-      page.getInputText(page.addButton).then(function(text) {
+      page.getTxt(page.addButton).then(function(text) {
         assert.equal(text, 'Add', 'button Add ma bledny tytul');
       });
 
-      page.clickSomething(page.addButton);
+      page.clickIn(page.addButton);
       driver.sleep(1000);
       page.isElement(page.addForm);
-      page.clickSomething(page.closeForm);
+      page.clickIn(page.closeForm);
       driver.sleep(1000);
       //tu powinno sie sprawdzic czy zamyka formularz dodawania
     });
@@ -129,40 +125,40 @@ test.describe('Strona - kontrola bezpieczeństwa', function() {
       this.timeout(TimeOut);
 	    page.visit();
       page.fillForm('marcin', 'changeme', 11, 16);
-			page.clickSomething(page.buttonZaloguj);
+			page.clickIn(page.logInButton);
       driver.sleep(1000);
       var currentUrl;
       page.getUrl().then(function(text) {
           currentUrl = text.toString();
         });
       page.url = currentUrl;
-      page.clickSomething(page.userManagement);
+      page.clickIn(page.userManagement);
       driver.sleep(1000);
 
-      page.clickSomething(page.roles);
+      page.clickIn(page.roles);
       driver.sleep(1000);
 
-      page.clickSomething(page.addButton);
+      page.clickIn(page.addButton);
       driver.sleep(1000);
       page.isElement(page.addForm);
       var rola = 'przykladowa rola';
       var opis = 'opis';
       driver.sleep(1000);
-      page.writeSomewhere(page.inputRoleName, rola);
-      page.writeSomewhere(page.textareaRoleDescription, opis);
+      page.setText(page.inputRoleName, rola);
+      page.setText(page.textareaRoleDescription, opis);
       driver.sleep(1000);
 
-      page.getInputText(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody/tr[1]/td/div/table/tbody/tr/td[1]/div')).
+      page.getTxt(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody/tr[1]/td/div/table/tbody/tr/td[1]/div')).
       then(function(text) {
         assert.equal(text, rola, 'nazwa roli jest bledna');
       });
-      page.getInputText(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody/tr[1]/td/div/table/tbody/tr/td[2]/div')).
+      page.getTxt(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody/tr[1]/td/div/table/tbody/tr/td[2]/div')).
       then(function(text) {
         assert.equal(text, opis, 'opis roli jest bledny');
       });
 
       page.cleanTextPlace(page.inputRoleName, page.clearRoleName);
-      page.getInputText(page.inputRoleName).
+      page.getTxt(page.inputRoleName).
       then(function(text) {
         assert.equal(text, '', 'nie wyczyszczono pola role name');
       });
@@ -177,30 +173,29 @@ test.describe('Strona - kontrola bezpieczeństwa', function() {
       var page = new utcPage(driver);
       this.timeout(TimeOut);
 	    page.visit();
-      page.fillForm('marcin', 'changeme', 11, 16);
-			page.clickSomething(page.buttonZaloguj);
+      page.logIn('marcin', 'changeme', 11, 16);
       driver.sleep(1000);
       var currentUrl;
       page.getUrl().then(function(text) {
           currentUrl = text.toString();
         });
       page.url = currentUrl;
-      page.clickSomething(page.userManagement);
+      page.clickIn(page.userManagement);
       driver.sleep(1000);
 
-      page.clickSomething(page.roles);
+      page.clickIn(page.roles);
       driver.sleep(1000);
 
-      page.clickSomething(page.addButton);
+      page.clickIn(page.addButton);
       driver.sleep(1000);
 
       var rola = 'przykladowa rola';
       var opis = 'opis';
       driver.sleep(1000);
-      page.writeSomewhere(page.inputRoleName, rola);
-      page.writeSomewhere(page.textareaRoleDescription, opis);
+      page.setText(page.inputRoleName, rola);
+      page.setText(page.textareaRoleDescription, opis);
 
-      page.clickSomething(page.closeForm);
+      page.clickIn(page.closeForm);
 
       driver.sleep(1000);
       page.isElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div[1]'));
@@ -208,48 +203,48 @@ test.describe('Strona - kontrola bezpieczeństwa', function() {
       page.isElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div/button[1]'));
       page.isElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div/button[2]'));
 
-      page.getInputText(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div/p[1]')).then(function(text) {
+      page.getTxt(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div/p[1]')).then(function(text) {
         assert.notEqual(text, '', 'blok p jest pusty');
       });
-      page.getInputText(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div/p[2]/small')).then(function(text) {
+      page.getTxt(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div/p[2]/small')).then(function(text) {
         assert.notEqual(text, '', 'blok small jest pusty');
       });
 
-      page.clickSomething(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/span'));
+      page.clickIn(webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/span'));
       driver.sleep(1000);
-      page.clickSomething(page.h4Profile);
+      page.clickIn(page.h4Profile);
       page.driver.findElement(webdriver.By.xpath('//*[@id="role-details-accordion"]/div[1]'))
       .getAttribute('class').then(function(text){
         expect(text).to.have.string('panel panel-default panel-active')
       });
       driver.sleep(1000);
-      page.clickSomething(page.h4Profile);
+      page.clickIn(page.h4Profile);
       page.driver.findElement(webdriver.By.xpath('//*[@id="role-details-accordion"]/div[1]'))
       .getAttribute('class').then(function(text){
         expect(text).to.have.string('panel panel-default panel-active panel-expanded')
       });
 
       driver.sleep(1000);
-      page.clickSomething(page.h4JobF);
+      page.clickIn(page.h4JobF);
       page.driver.findElement(webdriver.By.xpath('//*[@id="role-details-accordion"]/div[2]'))
       .getAttribute('class').then(function(text){
         expect(text).to.have.string('panel panel-default panel-active panel-expanded')
       });
       driver.sleep(1000);
-      page.clickSomething(page.h4JobF);
+      page.clickIn(page.h4JobF);
       page.driver.findElement(webdriver.By.xpath('//*[@id="role-details-accordion"]/div[2]'))
       .getAttribute('class').then(function(text){
         expect(text).to.have.string('panel panel-default panel-active')
       });
 
       driver.sleep(1000);
-      page.clickSomething(page.h4Users);
+      page.clickIn(page.h4Users);
       page.driver.findElement(webdriver.By.xpath('//*[@id="role-details-accordion"]/div[3]'))
       .getAttribute('class').then(function(text){
         expect(text).to.have.string('panel panel-default panel-active panel-expanded')
       });
       driver.sleep(1000);
-      page.clickSomething(page.h4Users);
+      page.clickIn(page.h4Users);
       page.driver.findElement(webdriver.By.xpath('//*[@id="role-details-accordion"]/div[3]'))
       .getAttribute('class').then(function(text){
         expect(text).to.have.string('panel panel-default panel-active')
