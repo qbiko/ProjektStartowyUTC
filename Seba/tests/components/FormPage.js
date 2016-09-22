@@ -4,14 +4,13 @@ function FormPage(driver, link) {
     
     this.driver = driver;
     this.url = link;
-    this.TAB = '\ue004';
-    this.ENTER = '\ue007';
-    this.ARROW_DOWN = '\ue015';
     this.buttonZaloguj = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/div/section/div[3]/form/div[4]/button');
     this.loginInput = webdriver.By.id('username');
     this.passwordInput = webdriver.By.id('password');
     this.informatorSelect = webdriver.By.xpath('//*[@id="options-panel"]/div[1]/button');
     this.languageSelect = webdriver.By.xpath('//*[@id="options-panel"]/div[2]/button');
+    this.userDrop = webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li');
+    this.logoutButton = webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/ul/li[4]');
 };
 
 FormPage.prototype.visit = function() {
@@ -66,7 +65,6 @@ FormPage.prototype.isElement = function(element) {
         }
     });
 }
-<<<<<<< HEAD
 FormPage.prototype.clickIn = function(object) {
     this.driver.findElement(object).click();
 };
@@ -91,7 +89,10 @@ FormPage.prototype.logIn = function(login, password, IDInformator, IDJezyk) {
     this.fillForm(login, password, IDInformator, IDJezyk);
     this.clickIn(this.buttonZaloguj);
 }
+FormPage.prototype.logout = function() {
+    this.clickIn(this.userDrop);
+    this.clickIn(this.logoutButton);
+}
 module.exports = FormPage;
-=======
-module.exports = FormPage;
->>>>>>> origin/master
+
+
