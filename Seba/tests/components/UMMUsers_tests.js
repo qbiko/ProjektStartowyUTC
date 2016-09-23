@@ -1,11 +1,11 @@
 var assert = require('assert'),
 test = require('selenium-webdriver/testing'),
 webdriver = require('selenium-webdriver');
-//var chrome = require('selenium-webdriver/chrome');
-//var path = require('chromedriver').path;
+var chrome = require('selenium-webdriver/chrome');
+var path = require('chromedriver').path;
 
-//var service = new chrome.ServiceBuilder(path).build();
-//chrome.setDefaultService(service);
+var service = new chrome.ServiceBuilder(path).build();
+chrome.setDefaultService(service);
 //userManagement na 14
 var utcPage = require('./utcPage.js');
 import { expect } from 'chai';
@@ -50,11 +50,11 @@ var lastname = 'aaaaaaaa';
 var username = 'Sebastian';
 var password = 'bardzotajne';
 var TAB = '\ue004';
-/*
+
 test.before(function(){
     this.timeout(8000);
     driver = new webdriver.Builder().
-        withCapabilities(webdriver.Capabilities.safari()).
+        withCapabilities(webdriver.Capabilities.chrome()).
         build();
     page = new utcPage(driver);
     page.visit();
@@ -99,21 +99,49 @@ test.describe('User Management > Users Test', function(){
         page.MoveToActiveAddBtn();
         //TODO
         page.checkIfAddUser('Sebastian'); //zmienic zeby byla zmienna
+        driver.sleep(1000);
     })
 
-    test.it('Disable the user in action dropdown and check result', function(){
+    test.it('Disable the user in action dropdown', function(){
         this.timeout(5000);
         driver.sleep(1000);
         page.refresh();
+
         page.waitToElement(user);
         page.clickIn(user);
+
         page.waitToElement(actionDropdown);
         page.clickIn(actionDropdown);
+
         page.waitToElement(disableBtn);
         page.clickIn(disableBtn);
+
+        page.waitToElement(saveBtn);
         page.clickIn(saveBtn); //save
+
         page.clickIn(closeBtn);
         page.waitToElement(user);
+/*
+        page.refresh();
+        page.waitToElement(user);
+        driver.sleep(2000);
+        page.waitToElement(userIcon);
+
+        page.getElement(userIcon).getAttribute('class').then(function(text){
+            console.log(text);
+            expect(text).to.have.string('icon-disabled-red');
+        })
+
+*/
+    });
+
+    test.it('check result disable icon', function(){
+        this.timeout(5000);
+        driver.sleep(1000);
+
+        page.refresh();
+        page.waitToElement(user);
+        driver.sleep(2000);
         page.waitToElement(userIcon);
         page.getElement(userIcon).getAttribute('class').then(function(text){
             console.log(text);
@@ -122,21 +150,30 @@ test.describe('User Management > Users Test', function(){
 
 
     });
+
     test.it('Enable the user in action dropdown and check result', function(){
         this.timeout(5000);
         driver.sleep(1000);
         page.refresh();
+
         page.waitToElement(user);
         page.clickIn(user);
+
         page.waitToElement(actionDropdown);
         page.clickIn(actionDropdown);
+
         page.waitToElement(enableBtn);
         page.clickIn(enableBtn); 
+
         page.waitToElement(saveBtn);
         page.clickIn(saveBtn); //zapis
+
         page.clickIn(closeBtn);
         page.waitToElement(user);
+
+        driver.sleep(1000);
         page.waitToElement(userIcon);
+
         page.getElement(userIcon).getAttribute('class').then(function(text){
             console.log(text);
             expect(text).to.not.have.string('icon-disabled-red');
@@ -268,4 +305,3 @@ test.after(function() {
     driver.quit();
 
 });
-*/

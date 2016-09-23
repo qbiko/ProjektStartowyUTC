@@ -8,7 +8,7 @@ var link = 'http://10.0.100.171:8082/#/umm/users'; //tutaj zmienic na strone log
 var driver;
 var page;
 var TAB = '\ue004';
-
+/*
 test.before(function(){
     this.timeout(5000);
     driver = new webdriver.Builder().
@@ -16,6 +16,13 @@ test.before(function(){
         build();
     page = new utcPage(driver);
     page.visit();
+    page.waitToElement(webdriver.By.id('app'));
+    driver.getCurrentUrl().then(function(url) {
+    if(url != page.urlToCheck) {
+        page.logout();
+      }
+    });
+
 });
 
 test.describe('Find all Links, and check title attribute', function(){
@@ -75,15 +82,11 @@ test.describe('Find all Links, and check title attribute', function(){
 
             });
 
-            test.before(function(){
+            test.it('in UMM page, User Groups bookmark, with first view of users list(not all list from database)', function(){
+                var usergroups = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "User Groups")]');
                 page.refresh();
-                page.clickIn(page.roles);
+                page.clickIn(usergroups);
                 driver.sleep(1000);
-
-            });
-
-            test.it('in UMM page, Roles bookmark, with first view of users list(not all list from database)', function(){
-
 
                 var div = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody');
                 page.waitToElement(div);
@@ -95,7 +98,42 @@ test.describe('Find all Links, and check title attribute', function(){
                         });
                     });
                 });
+            });
 
+            test.it('in UMM page, Roles bookmark, with first view of users list(not all list from database)', function(){
+
+                page.refresh();
+                page.clickIn(page.roles);
+                driver.sleep(1000);
+
+                var div = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody');
+                page.waitToElement(div);
+                driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
+                    elements.forEach(function (element) {
+                        element.getAttribute('title').then(function(text){
+                            console.log(text);
+                            //expect(text).to.have.length.above(0);
+                        });
+                    });
+                });
+            });
+
+            test.it('in UMM page, Job Functions bookmark, with first view of users list(not all list from database)', function(){
+                var usergroups = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "Job Functions")]');
+                page.refresh();
+                page.clickIn(usergroups);
+                driver.sleep(1000);
+
+                var div = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody');
+                page.waitToElement(div);
+                driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
+                    elements.forEach(function (element) {
+                        element.getAttribute('title').then(function(text){
+                            console.log(text);
+                            //expect(text).to.have.length.above(0);
+                        });
+                    });
+                });
             });
 
         })
@@ -104,4 +142,4 @@ test.describe('Find all Links, and check title attribute', function(){
 
 test.after(function() {
     driver.quit();
-});
+});*/
