@@ -1,5 +1,6 @@
 var webdriver = require('selenium-webdriver');
 var assert = require('assert');
+import { expect } from 'chai';
 const ENTER = '\ue007';
 const TAB = '\ue004';
 const ARROW_DOWN = '\ue015';
@@ -256,6 +257,31 @@ utcPage.prototype.MoveToActiveAddBtn = function(){
     var lenel = this.driver.findElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/a')); //logout dropdown 
     lenel.sendKeys(TAB);
     this.driver.sleep(1000);
+}
+
+//funtion to verify all visible elements (check if attribute is present in each elements)
+utcPage.prototype.findAllElementsAndCheck = function(elementHTML, attribute){
+    this.driver.findElements(webdriver.By.xpath(elementHTML)).then(function(elements){
+        elements.forEach(function (element) {
+            element.getAttribute(attribute).then(function(text){
+                //console.log(text) //if empty space in line, this title is empty
+                expect(text).to.have.length.above(0); //if texts  attribute length has 0, test faild
+            });
+        });
+    });
+}
+
+//function to choose user in users list, and click assign btn in selected bookmark in accordion and wait to panelContent
+utcPage.prototype.clickAssignInAccordionBookmark = function(userToClick, whichBookmarkDiv, expand, elementBtn, panelContent){
+
+    this.waitToElement(userToClick);
+    this.clickIn(userToClick);
+    this.waitToElement(whichBookmarkDiv); //wait to load accordion
+    this.clickIn(whichBookmarkDiv); //click div
+    this.waitToElement(expand); //wait to expanded
+    this.waitToElement(elementBtn); //wait to assign button
+    this.clickIn(elementBtn); // click assign button
+    this.waitToElement(panelContent); //wait to panel content;
 }
 
 module.exports = utcPage;
