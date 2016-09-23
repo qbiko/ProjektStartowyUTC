@@ -8,7 +8,7 @@ const TimeOut = 30000; //ms
 
 test.before(function() {
     this.timeout(TimeOut);
-    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
+    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.edge()).build();
 });
 
 test.beforeEach(function() {
@@ -107,9 +107,9 @@ test.describe('User Management i Roles', function() {
       page.getTxt(page.moduleTitle).then(function(text) {
         assert.equal(text, 'Roles', 'h2 module title ma bledny tytul');
       });
-
+      driver.sleep(1000);
       page.getTxt(page.addButton).then(function(text) {
-        assert.equal(text, 'ADD', 'button ADD ma bledny tytul');
+        assert.equal(text, 'Add', 'button ADD ma bledny tytul');
       });
 
       page.clickIn(page.addButton);
@@ -145,6 +145,7 @@ test.describe('User Management i Roles', function() {
       var opis = 'opis';
       driver.sleep(1000);
       page.setText(page.inputRoleName, rola);
+      driver.sleep(1000);
       page.setText(page.textareaRoleDescription, opis);
       driver.sleep(1000);
 

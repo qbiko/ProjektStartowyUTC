@@ -17,7 +17,7 @@ const TimeOut = 30000;
 
 test.before(function() {
     this.timeout(TimeOut);
-    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
+    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.edge()).build();
     var page = new utcPage(driver);
     this.timeout(TimeOut);
     driver.sleep(3000);

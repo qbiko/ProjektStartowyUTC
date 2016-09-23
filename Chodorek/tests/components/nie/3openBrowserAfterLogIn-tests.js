@@ -9,7 +9,7 @@ const TimeOut = 30000; //ms
 
 test.before(function() {
     this.timeout(TimeOut);
-    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.safari()).build();
+    driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
 
 });
 
@@ -26,7 +26,6 @@ test.describe('Dziala tylko gdy uruchamiamy gdy sie zalogowalismy i wylaczylismy
       });
       var currentUrl = driver.getCurrentUrl().toString();
       page.url = currentUrl;
-      page.logout();
       driver.sleep(1000);
     });
 });

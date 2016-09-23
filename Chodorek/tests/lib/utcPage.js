@@ -2,7 +2,7 @@ var webdriver = require('selenium-webdriver');
 
 function utcPage(driver) {
     this.driver = driver;
-    this.url = 'http://10.0.100.171:8082/';
+    this.url = 'http://10.0.100.171:8082';
     //1strona
     this.loginInput = webdriver.By.id('username');
     this.passwordInput = webdriver.By.id('password');

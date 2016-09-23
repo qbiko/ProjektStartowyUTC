@@ -16,7 +16,7 @@ test.before(function() {
     page.visit();
     driver.sleep(1000);
     driver.getCurrentUrl().then(function(url) {
-      if(url == 'http://10.0.100.171:8082/#/console') {
+      if(url != 'http://10.0.100.171:8082/#/') {
         driver.sleep(1000);
         driver.findElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li')).click();
         driver.sleep(1000);
@@ -42,6 +42,7 @@ test.describe('Strona logowania', function() {
     test.it('zbadaj czy w local storage sa odpowiednie wartosci jezyka i informatora', function() {
 			var page = new utcPage(driver);
 	    page.visit();
+      driver.sleep(1000);
       page.fillForm('Jakub', 'Chodorowski', 12, 16);
 
       page.checkLocalStorage('locale').then(function(value) {

@@ -11,7 +11,7 @@ const TimeOut = 30000; //ms
 
 test.describe('Test Konsoli Bezpieczenstwa', function(){
         driver = new webdriver.Builder().
-        withCapabilities(webdriver.Capabilities.chrome()).
+        withCapabilities(webdriver.Capabilities.edge()).
         build();
 
     test.it('czy po zalogowaniu pojawia sie odpowiednia strona i czy poprawnie wylogowuje', function() {
