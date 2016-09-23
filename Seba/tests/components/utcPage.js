@@ -253,7 +253,7 @@ utcPage.prototype.checkFocusElement = function(elemToCheck) {
 }
 
 utcPage.prototype.MoveToActiveAddBtn = function(){
-    var lenel = this.driver.findElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/a')); //logout dropdown 
+    var lenel = this.driver.findElement(webdriver.By.xpath('//*[@id="app"]/section/div/div/nav/div/ul/li/a')); //logout dropdown
     lenel.sendKeys(TAB);
     this.driver.sleep(1000);
 }
