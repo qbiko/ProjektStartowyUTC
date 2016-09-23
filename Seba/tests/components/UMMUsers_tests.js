@@ -50,7 +50,7 @@ var lastname = 'aaaaaaaa';
 var username = 'Sebastian';
 var password = 'bardzotajne';
 var TAB = '\ue004';
-
+/*
 test.before(function(){
     this.timeout(8000);
     driver = new webdriver.Builder().
@@ -268,3 +268,4 @@ test.after(function() {
     driver.quit();
 
 });
+*/

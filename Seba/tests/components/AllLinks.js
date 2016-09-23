@@ -10,25 +10,21 @@ var page;
 var TAB = '\ue004';
 
 test.before(function(){
-    /*
     this.timeout(5000);
     driver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.safari()).
         build();
     page = new utcPage(driver);
     page.visit();
-    */
 });
 
-test.describe('Find all Links', function(){
-/*
+test.describe('Find all Links, and check title attribute', function(){
         //find all links in login page and verify the title attribute
         test.it('in log-in page', function(){
             driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
                 elements.forEach(function (element) {
                     element.getAttribute('title').then(function(text){
-                        console.log('log-in ' + text);
-                        assert.notEqual(text, '');
+                        expect(text).to.have.length.above(0);
                     });
                 });
             });
@@ -49,19 +45,14 @@ test.describe('Find all Links', function(){
                 driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
                     elements.forEach(function (element) {
                         element.getAttribute('title').then(function(text){
-                            console.log('console ' + text);
-                            //assert.notEqual(text, '');
+                            expect(text).to.have.length.above(0);
                         });
                     });
                 });
 
             });
 
-        })
-
-        //Check all links in bookmark UMM
-        test.describe('After login, all bookmarks', function(){
-            //login
+            //go to UMM bookmark
            test.before(function(){
                 page.clickIn(page.userManagement);
                 page.waitToElement(page.navbarHeader);
@@ -69,104 +60,48 @@ test.describe('Find all Links', function(){
             });
 
             //UMM
-            test.it('in UMM page, without users list', function(){
+            test.it('in UMM page, Users bookmark, with first view of users list(not all list from database)', function(){
 
+                var div = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody');
+                page.waitToElement(div);
                 driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
                     elements.forEach(function (element) {
                         element.getAttribute('title').then(function(text){
-                            console.log('UMM ' + text);
-                            //assert.notEqual(text, '');
+                            console.log(text);
+                            //expect(text).to.have.length.above(0);
                         });
                     });
                 });
 
             });
 
-            test.it('in UMM page, users list', function(){
-                //wait to download admin
-                var admin = webdriver.By.xpath('//table[contains(@class, "list-container-table")]/tbody/tr/td/div/div/div[3]/a'); //admin
-                page.waitToElement(admin);
+            test.before(function(){
+                page.refresh();
+                page.clickIn(page.roles);
+                driver.sleep(1000);
 
-                     
-                var e=0;
-                var i=0;
-                var next = 0;
-                while(i<30)
-                {
-                    
-                    driver.findElements(webdriver.By.xpath('//div[contains(@class, "infinite-list-item")]/a')).then(function(elements){
-                        e = elements.length;
-                        var where = e+1;
-                        console.log(where);
-                        admin = webdriver.By.xpath('//table[contains(@class, "list-container-table")]/tbody/tr/td/div/div/div[' + where + ']/a'); //last element to click
-                        driver.findElement(admin).isDisplayed().then(function(text){
-                            if(text==false)
-                            {
-                                next = false;
-                            }
-                            else
-                            {
-                                next = true;console.log(text);
-                                driver.findElement(admin).sendKeys(TAB);
-                            }
-                        });
+            });
 
-                    }); 
-                    console.log(i);
-                    i++;
-                }
-                                
-                    driver.findElements(webdriver.By.xpath('//div[contains(@class, "infinite-list-item")]/a')).then(function(elements){
-                        console.log(elements.length);
-                        elements.forEach(function (element) {
-                            element.getAttribute('title').then(function(text){
-                                console.log('user ' + text);
-                                //assert.notEqual(text, '');
-                            });
+            test.it('in UMM page, Roles bookmark, with first view of users list(not all list from database)', function(){
+
+
+                var div = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody');
+                page.waitToElement(div);
+                driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
+                    elements.forEach(function (element) {
+                        element.getAttribute('title').then(function(text){
+                            console.log(text);
+                            //expect(text).to.have.length.above(0);
                         });
                     });
-                    
-                    var len = 0;
-                    driver.findElements(webdriver.By.xpath('//div[contains(@class, "infinite-list-item")]/a')).then(function(elements){
-                        len = elements.length;
-                        console.log(len);
+                });
 
-                    })
-
-                    driver.findElements(webdriver.By.xpath('//div[contains(@class, "infinite-list-item")]/a')).then(function(elements){
-                        var e = elements.length;
-                        var where = e+1;
-                        console.log(where);
-                        
-                        admin = webdriver.By.xpath('//table[contains(@class, "list-container-table")]/tbody/tr/td/div/div/div[' + where + ']/a'); //last element to click
-                        page.waitToElement(admin);
-                        driver.findElement(admin).sendKeys(TAB);
-                        where = where+1;
-                        
-                        admin = webdriver.By.xpath('//table[contains(@class, "list-container-table")]/tbody/tr/td/div/div/div[' + where + ']/a'); //last element to click
-
-                        page.waitToElement(admin);
-                        driver.findElement(admin).sendKeys(TAB);
-
-
-                    }); 
-                    driver.findElements(webdriver.By.xpath('//div[contains(@class, "infinite-list-item")]/a')).then(function(elements){
-                        console.log(elements.length);
-                        elements.forEach(function (element) {
-                            element.getAttribute('title').then(function(text){
-                                console.log('user ' + text);
-                                //assert.notEqual(text, '');
-                            });
-                        });
-                    })
-
-                //page.logout();
             });
 
         })
-*/
+  
 });
-/*
+
 test.after(function() {
     driver.quit();
-});*/
+});
