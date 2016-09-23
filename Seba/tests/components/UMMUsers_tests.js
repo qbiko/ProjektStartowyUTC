@@ -99,7 +99,7 @@ test.describe('User Management > Users Test', function(){
         page.MoveToActiveAddBtn();
         //TODO
         page.checkIfAddUser('Sebastian'); //zmienic zeby byla zmienna
-        driver.sleep(1000);
+        driver.sleep(2000);
     })
 
     test.it('Disable the user in action dropdown', function(){
@@ -120,8 +120,8 @@ test.describe('User Management > Users Test', function(){
         page.clickIn(saveBtn); //save
 
         page.clickIn(closeBtn);
-        page.waitToElement(user);
-/*
+/*        page.waitToElement(user);
+
         page.refresh();
         page.waitToElement(user);
         driver.sleep(2000);
@@ -135,7 +135,7 @@ test.describe('User Management > Users Test', function(){
 */
     });
 
-    test.it('check result disable icon', function(){
+    test.it('Disable icon, check result', function(){
         this.timeout(5000);
         driver.sleep(1000);
 
@@ -151,7 +151,7 @@ test.describe('User Management > Users Test', function(){
 
     });
 
-    test.it('Enable the user in action dropdown and check result', function(){
+    test.it('Enable the user in action dropdown', function(){
         this.timeout(5000);
         driver.sleep(1000);
         page.refresh();
@@ -169,7 +169,7 @@ test.describe('User Management > Users Test', function(){
         page.clickIn(saveBtn); //zapis
 
         page.clickIn(closeBtn);
-        page.waitToElement(user);
+       /* page.waitToElement(user);
 
         driver.sleep(1000);
         page.waitToElement(userIcon);
@@ -177,8 +177,23 @@ test.describe('User Management > Users Test', function(){
         page.getElement(userIcon).getAttribute('class').then(function(text){
             console.log(text);
             expect(text).to.not.have.string('icon-disabled-red');
+        })*/
+    });
+
+    test.it('Enable icon, check result', function(){
+        this.timeout(5000);
+        driver.sleep(1000);
+
+        page.refresh();
+        page.waitToElement(user);
+        driver.sleep(2000);
+        page.waitToElement(userIcon);
+        page.getElement(userIcon).getAttribute('class').then(function(text){
+            console.log(text);
+            expect(text).to.not.have.string('icon-disabled-red');
         })
     });
+
 
     test.it('Add user to some groups and check', function(){
         this.timeout(5000);
