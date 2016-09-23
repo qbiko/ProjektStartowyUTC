@@ -76,6 +76,31 @@ function utcPage(driver) {
     //keyboard
     this.keyboardStart = webdriver.By.className('brand');
     this.stop = false;
+
+    //UMMUsers test
+    this.internalAccountDiv = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[2]/div[1]');
+
+    this.container = webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]');
+    this.actionDropdown  = webdriver.By.xpath('//div[contains(@class, "btn-group")]/button');
+    this.saveBtn = webdriver.By.xpath('//*[@id="heading-profile"]/div[3]/button');
+    this.disableBtn = webdriver.By.xpath('//ul[contains(@class, "user-card-actions-dropdown")]/li[2]/a');
+    this.enableBtn = webdriver.By.xpath('//*[@id="heading-profile"]/div[3]/div/ul/li[2]/a');
+    this.deleteBtn = webdriver.By.xpath('//*[@id="heading-profile"]/div[3]/div/ul/li[4]/a');
+    this.closeBtn = webdriver.By.xpath('//*[@id="heading-profile"]/div[3]/a');
+
+    //popup window
+    this.permanentlyDeleteBtn = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/section/div/div[1]/div/div/button[1]');
+    //user groups
+
+    this.panelExpanded =  webdriver.By.xpath('//*[@id="user-details-accordion"]/div[5]/div[2]/div');
+    this.accordionUserGroupsAssignBtn = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[5]/div[2]/div/div[1]/a');
+    this.assignmentPanelContent = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div[3]/div[1]/div[2]');
+    this.accordionUserGroups = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[5]');
+
+    this.examplegroup1 = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div[3]/div[1]/div[2]/table/tbody/tr[1]');
+    this.exampleAssignedGroup1 = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div[3]/div[2]/div[2]/table/tbody/tr[1]');
+    this.saveGroupsBtn = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div[1]/button');
+    this.countOfGroups = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[5]/div[2]/div/div[1]/strong');
 };
 
 utcPage.prototype.visit = function() {
