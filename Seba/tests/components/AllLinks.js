@@ -1,6 +1,11 @@
 var assert = require('assert'),
 test = require('selenium-webdriver/testing'),
 webdriver = require('selenium-webdriver');
+var chrome = require('selenium-webdriver/chrome');
+var path = require('chromedriver').path;
+
+var service = new chrome.ServiceBuilder(path).build();
+chrome.setDefaultService(service);
 var utcPage = require('./utcPage.js');
 import { mount } from 'enzyme';
 import { expect } from 'chai';
@@ -8,11 +13,25 @@ var link = 'http://10.0.100.171:8082/#/umm/users'; //tutaj zmienic na strone log
 var driver;
 var page;
 var TAB = '\ue004';
-/*
+var Timeout = 5000; 
+
+var admin = webdriver.By.xpath('//a[contains(@title, "admin")]');
+var actionDropdown  = webdriver.By.xpath('//div[contains(@class, "btn-group")]/button');
+//user groups
+var accordionUserGroups = webdriver.By.xpath('//div[contains(@class, "side-panel-accordion")]/div[5]/div[1]');
+var panelExpanded =  webdriver.By.xpath('//div[contains(@class, "panel panel-default panel-active panel-expanded")]');
+var accordionUserGroupsPanelColapse = webdriver.By.xpath('//div[contains(@class, "panel-collapse")]');
+var accordionUserGroupsAssignBtn = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[5]/div[2]/div/div[1]/a');
+var assignmentPanelContent = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div[3]/div[1]/div[2]');
+var container = webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]');
+
+var accordionDirectoryAccounts = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[3]/div[1]');
+var accordionDirectoryAccountsBtn = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[3]/div[2]/div/div[1]/a');
+
 test.before(function(){
-    this.timeout(5000);
+    this.timeout(Timeout);
     driver = new webdriver.Builder().
-        withCapabilities(webdriver.Capabilities.safari()).
+        withCapabilities(webdriver.Capabilities.chrome()).
         build();
     page = new utcPage(driver);
     page.visit();
@@ -24,39 +43,31 @@ test.before(function(){
     });
 
 });
+test.describe('Find all objects and check attribute', function(){
+    var elementHTML = '//a'; //element to find
+    var attribute = 'title'; //attribute to find
+    var username = 'marcin';
+    var password = 'changeme';
 
-test.describe('Find all Links, and check title attribute', function(){
         //find all links in login page and verify the title attribute
         test.it('in log-in page', function(){
-            driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
-                elements.forEach(function (element) {
-                    element.getAttribute('title').then(function(text){
-                        expect(text).to.have.length.above(0);
-                    });
-                });
-            });
-
+            this.timeout(Timeout)
+            page.findAllElementsAndCheck(elementHTML, attribute);
         });
 
         //Blok after login. Check all links in console
         test.describe('After login', function(){
+            this.timeout(Timeout)
             //login
             test.before(function(){
-                page.logIn('marcin', 'changeme', 11, 16);
+                page.logIn(username, password , 11, 16);
                 page.waitToElement(page.userManagement);
             });
 
             //console page
             test.it('in console page', function(){
-
-                driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
-                    elements.forEach(function (element) {
-                        element.getAttribute('title').then(function(text){
-                            expect(text).to.have.length.above(0);
-                        });
-                    });
-                });
-
+                this.timeout(Timeout);
+                page.findAllElementsAndCheck(elementHTML, attribute);
             });
 
             //go to UMM bookmark
@@ -66,74 +77,38 @@ test.describe('Find all Links, and check title attribute', function(){
 
             });
 
-            //UMM
-            test.it('in UMM page, Users bookmark, with first view of users list(not all list from database)', function(){
+            //UMM(search in navbar, first view of users list, accordion)
+            test.it('in UMM page, Users bookmark, with first view of users list(not all list from database) and accordion', function(){
+                this.timeout(Timeout);
 
-                var div = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody');
-                page.waitToElement(div);
-                driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
-                    elements.forEach(function (element) {
-                        element.getAttribute('title').then(function(text){
-                            console.log(text);
-                            //expect(text).to.have.length.above(0);
-                        });
-                    });
-                });
+                //open accordion
+                page.waitToElement(admin);
+                page.clickIn(admin);
+                page.waitToElement(container);
+                //wait to dropdown elements
+                page.waitToElement(actionDropdown);
+                page.clickIn(actionDropdown);
+
+                page.findAllElementsAndCheck(elementHTML, attribute);
 
             });
 
-            test.it('in UMM page, User Groups bookmark, with first view of users list(not all list from database)', function(){
-                var usergroups = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "User Groups")]');
+            test.it('in UMM page, in accordions Directory Accounts after click assign button', function(){
+                this.timeout(Timeout);
                 page.refresh();
-                page.clickIn(usergroups);
-                driver.sleep(1000);
+                //open accordion and open assign popup
+                page.clickAssignInAccordionBookmark(admin, accordionDirectoryAccounts, panelExpanded, accordionDirectoryAccountsBtn, assignmentPanelContent)
+                page.findAllElementsAndCheck(elementHTML, attribute);
 
-                var div = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody');
-                page.waitToElement(div);
-                driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
-                    elements.forEach(function (element) {
-                        element.getAttribute('title').then(function(text){
-                            console.log(text);
-                            //expect(text).to.have.length.above(0);
-                        });
-                    });
-                });
             });
 
-            test.it('in UMM page, Roles bookmark, with first view of users list(not all list from database)', function(){
-
+            test.it('in UMM page, in accordions Assign Groups after click assign button', function(){
+                this.timeout(Timeout);
                 page.refresh();
-                page.clickIn(page.roles);
-                driver.sleep(1000);
+                //open accordion and open assign popup
+                page.clickAssignInAccordionBookmark(admin, accordionUserGroups, panelExpanded, accordionUserGroupsAssignBtn, assignmentPanelContent)
+                page.findAllElementsAndCheck(elementHTML, attribute);
 
-                var div = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody');
-                page.waitToElement(div);
-                driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
-                    elements.forEach(function (element) {
-                        element.getAttribute('title').then(function(text){
-                            console.log(text);
-                            //expect(text).to.have.length.above(0);
-                        });
-                    });
-                });
-            });
-
-            test.it('in UMM page, Job Functions bookmark, with first view of users list(not all list from database)', function(){
-                var usergroups = webdriver.By.xpath('//aside[contains(@class, "sidebar")]//a[contains(@title, "Job Functions")]');
-                page.refresh();
-                page.clickIn(usergroups);
-                driver.sleep(1000);
-
-                var div = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/tbody');
-                page.waitToElement(div);
-                driver.findElements(webdriver.By.xpath('//a')).then(function(elements){
-                    elements.forEach(function (element) {
-                        element.getAttribute('title').then(function(text){
-                            console.log(text);
-                            //expect(text).to.have.length.above(0);
-                        });
-                    });
-                });
             });
 
         })
@@ -142,4 +117,4 @@ test.describe('Find all Links, and check title attribute', function(){
 
 test.after(function() {
     driver.quit();
-});*/
+});
