@@ -2,6 +2,7 @@ var assert = require('assert'),
 test = require('selenium-webdriver/testing'),
 webdriver = require('selenium-webdriver');
 var chrome = require('selenium-webdriver/chrome');
+const fnArgs = require('function-arguments');
 var path = require('chromedriver').path;
 
 var service = new chrome.ServiceBuilder(path).build();
@@ -30,8 +31,10 @@ var accordionDirectoryAccountsBtn = webdriver.By.xpath('//*[@id="user-details-ac
 
 test.before(function(){
     this.timeout(Timeout);
+    var args = process.argv.slice(2);
+    var browser = args[0].substring(2);
     driver = new webdriver.Builder().
-        withCapabilities(webdriver.Capabilities.chrome()).
+        forBrowser(browser).
         build();
     page = new utcPage(driver);
     page.visit();
@@ -48,7 +51,6 @@ test.describe('Find all objects and check attribute', function(){
     var attribute = 'title'; //attribute to find
     var username = 'marcin';
     var password = 'changeme';
-
         //find all links in login page and verify the title attribute
         test.it('in log-in page', function(){
             this.timeout(Timeout)

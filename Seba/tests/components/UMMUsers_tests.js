@@ -51,7 +51,7 @@ var lastname = 'aaaaaaaa';
 var username = 'Sebastian';
 var password = 'bardzotajne';
 
-
+/*
 test.before(function(){
     this.timeout(TimeOut);
     driver = new webdriver.Builder().
@@ -303,11 +303,12 @@ test.describe('User Management > Users Test', function(){
         elem.sendKeys(CTRL, DOWN);
         elem = driver.switchTo().activeElement();
         elem.sendKeys(ENTER);
-        /*
-        page.waitToElement(accordionUserGroups); //wait to load accordion
-        page.clickIn(accordionUserGroups); //click user groups
-        page.waitToElement(panelExpanded); //wait to expanded
-        */
+
+        
+        //page.waitToElement(accordionUserGroups); //wait to load accordion
+        //page.clickIn(accordionUserGroups); //click user groups
+        //page.waitToElement(panelExpanded); //wait to expanded
+        
         //verify results. We check, if is in user group 3 elements
         page.getElementText(countOfGroups).then(function(text){
             expect(Number(text)).to.equal(3);
@@ -384,3 +385,4 @@ test.after(function() {
     driver.quit();
 
 });
+*/
