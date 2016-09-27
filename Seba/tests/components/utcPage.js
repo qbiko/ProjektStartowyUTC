@@ -101,6 +101,15 @@ function utcPage(driver) {
     this.exampleAssignedGroup1 = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div[3]/div[2]/div[2]/table/tbody/tr[1]');
     this.saveGroupsBtn = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div[1]/button');
     this.countOfGroups = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[5]/div[2]/div/div[1]/strong');
+
+    //All links
+    this.admin = webdriver.By.xpath('//a[contains(@title, "admin")]');
+    this.panelExpanded2 =  webdriver.By.xpath('//div[contains(@class, "panel panel-default panel-active panel-expanded")]');
+    this.accordionUserGroupsAssignBtn = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[5]/div[2]/div/div[1]/a');
+    this.assignmentPanelContent = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div[3]/div[1]/div[2]');
+    this.container = webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]');
+    this.accordionDirectoryAccounts = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[3]/div[1]');
+    this.accordionDirectoryAccountsBtn = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[3]/div[2]/div/div[1]/a');
 };
 
 utcPage.prototype.visit = function() {

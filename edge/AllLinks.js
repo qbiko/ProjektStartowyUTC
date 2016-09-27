@@ -15,19 +15,6 @@ const DOWN = '\ue015';
 const ENTER = '\ue007';
 var Timeout = 30000;
 
-var admin = webdriver.By.xpath('//a[contains(@title, "admin")]');
-var actionDropdown  = webdriver.By.xpath('//div[contains(@class, "btn-group")]/button');
-//user groups
-var accordionUserGroups = webdriver.By.xpath('//div[contains(@class, "side-panel-accordion")]/div[5]/div[1]');
-var panelExpanded =  webdriver.By.xpath('//div[contains(@class, "panel panel-default panel-active panel-expanded")]');
-var accordionUserGroupsPanelColapse = webdriver.By.xpath('//div[contains(@class, "panel-collapse")]');
-var accordionUserGroupsAssignBtn = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[5]/div[2]/div/div[1]/a');
-var assignmentPanelContent = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/div/div/div/div[1]/div/div[3]/div[1]/div[2]');
-var container = webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]');
-
-var accordionDirectoryAccounts = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[3]/div[1]');
-var accordionDirectoryAccountsBtn = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[3]/div[2]/div/div[1]/a');
-
 test.before(function(){
     this.timeout(Timeout);
     var args = process.argv.slice(2);
@@ -88,9 +75,9 @@ test.describe('Find all objects and check attribute', function(){
                 this.timeout(Timeout);
 
                 //open accordion
-                page.waitToElement(admin);
-                page.clickIn(admin);
-                page.waitToElement(container);
+                page.waitToElement(page.admin);
+                page.clickIn(page.admin);
+                page.waitToElement(page.container);
                 //wait to dropdown elements
                 page.waitToElement(actionDropdown);
                 page.clickIn(actionDropdown);
@@ -103,8 +90,8 @@ test.describe('Find all objects and check attribute', function(){
                 this.timeout(Timeout);
                 page.refresh();
                 //open accordion and open assign popup
-                page.waitToElement(admin);
-                page.clickIn(admin);
+                page.waitToElement(page.admin);
+                page.clickIn(page.admin);
                 page.waitToElement(page.userLastName);
                 page.clickIn(page.userLastName);
                 driver.sleep(500);
@@ -120,11 +107,11 @@ test.describe('Find all objects and check attribute', function(){
                 elem = driver.switchTo().activeElement();
                 elem.sendKeys(ENTER);
 
-                //page.waitToElement(panelExpanded); //wait to expanded
-                page.waitToElement(accordionDirectoryAccountsBtn); //wait to assign button
-                page.clickIn(accordionDirectoryAccountsBtn); // click assign button
-                page.waitToElement(assignmentPanelContent); //wait to panel content;
-                //page.clickAssignInAccordionBookmark(admin, accordionDirectoryAccounts, panelExpanded, accordionDirectoryAccountsBtn, assignmentPanelContent)
+                //page.waitToElement(page.panelExpanded2); //wait to expanded
+                page.waitToElement(page.accordionDirectoryAccountsBtn); //wait to assign button
+                page.clickIn(page.accordionDirectoryAccountsBtn); // click assign button
+                page.waitToElement(page.assignmentPanelContent); //wait to panel content;
+                //page.clickAssignInAccordionBookmark(page.admin, p[age.accordionDirectoryAccounts, page.panelExpanded2, page.accordionDirectoryAccountsBtn, page.assignmentPanelContent)
                 page.findAllElementsAndCheck(elementHTML, attribute);
 
             });
@@ -134,8 +121,8 @@ test.describe('Find all objects and check attribute', function(){
                 page.refresh();
 
                 //open accordion and open assign popup
-                page.waitToElement(admin);
-                page.clickIn(admin);
+                page.waitToElement(page.admin);
+                page.clickIn(page.admin);
                 page.waitToElement(page.userLastName);
                 page.clickIn(page.userLastName);
                 driver.sleep(500);
@@ -156,11 +143,11 @@ test.describe('Find all objects and check attribute', function(){
                 elem = driver.switchTo().activeElement();
                 elem.sendKeys(ENTER);
 
-                //page.waitToElement(panelExpanded); //wait to expanded
-                page.waitToElement(accordionUserGroupsAssignBtn); //wait to assign button
-                page.clickIn(accordionUserGroupsAssignBtn); // click assign button
-                page.waitToElement(assignmentPanelContent); //wait to panel content;
-                //page.clickAssignInAccordionBookmark(admin, accordionUserGroups, panelExpanded, accordionUserGroupsAssignBtn, assignmentPanelContent)
+                //page.waitToElement(page.panelExpanded2); //wait to expanded
+                page.waitToElement(page.accordionUserGroupsAssignBtn); //wait to assign button
+                page.clickIn(page.accordionUserGroupsAssignBtn); // click assign button
+                page.waitToElement(page.assignmentPanelContent); //wait to panel content;
+                //page.clickAssignInAccordionBookmark(page.admin, accordionUserGroups, page.panelExpanded2, page.accordionUserGroupsAssignBtn, page.assignmentPanelContent)
                 page.findAllElementsAndCheck(elementHTML, attribute);
 
             });
