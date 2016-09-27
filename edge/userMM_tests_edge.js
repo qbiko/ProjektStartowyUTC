@@ -15,12 +15,6 @@ const DOWN = '\ue015';
 const ENTER = '\ue007';
 const TimeOut = 30000; //ms
 
-//adding new user
-var addBtn = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/thead/tr[2]/th/header/div/a');
-var lastInput = webdriver.By.xpath('//*[@id="user-lastname"]');
-var usernameInput = webdriver.By.xpath('//*[@id="user-username"]');
-var passwordInput = webdriver.By.xpath('//*[@id="user-password"]');
-
 test.before(function(){
     this.timeout(TimeOut);
     driver = new webdriver.Builder().
@@ -110,15 +104,15 @@ test.describe('User Management > Users Test', function(){
         this.timeout(TimeOut);
         page.refresh();
         driver.sleep(1000);
-        page.waitToElement(addBtn);
-        page.clickIn(addBtn);
-        page.waitToElement(lastInput); //wait to load input to last name
-        page.setText(lastInput, lastname);
+        page.waitToElement(page.addBtn);
+        page.clickIn(page.addBtn);
+        page.waitToElement(page.userLastName); //wait to load input to last name
+        page.setText(page.userLastName, lastname);
         page.waitToElement(page.internalAccountDiv);
         page.clickIn(page.internalAccountDiv);//open internal accounts
-        page.waitToElement(passwordInput); //wait to load all inputs in internal account
-        page.setText(usernameInput, username);
-        page.setText(passwordInput, password);
+        page.waitToElement(page.userPassword); //wait to load all inputs in internal account
+        page.setText(page.userUserName, username);
+        page.setText(page.userPassword, password);
         page.waitToElement(page.saveBtn);
         page.clickIn(page.saveBtn);
         page.waitToElement(webdriver.By.className('btn btn-success'));
@@ -129,7 +123,7 @@ test.describe('User Management > Users Test', function(){
     test.it('New User in Users List', function(){
         this.timeout(300000);
         page.refresh();
-        page.waitToElement(addBtn);
+        page.waitToElement(page.addBtn);
         page.MoveToActiveAddBtn();
         //TODO
         page.checkIfAddUser(username); //zmienic zeby byla zmienna

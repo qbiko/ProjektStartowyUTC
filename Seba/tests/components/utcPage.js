@@ -110,6 +110,9 @@ function utcPage(driver) {
     this.container = webdriver.By.xpath('//div[contains(@class, "list-with-panel-panel-container")]');
     this.accordionDirectoryAccounts = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[3]/div[1]');
     this.accordionDirectoryAccountsBtn = webdriver.By.xpath('//*[@id="user-details-accordion"]/div[3]/div[2]/div/div[1]/a');
+
+    //adding new user
+    this.addBtn = webdriver.By.xpath('//*[@id="app"]/section/div/div/div/section/div/section/section/table/thead/tr[2]/th/header/div/a');
 };
 
 utcPage.prototype.visit = function() {
